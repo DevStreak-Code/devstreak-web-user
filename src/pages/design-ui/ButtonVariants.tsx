@@ -92,17 +92,17 @@ const ButtonVariants = () => {
               />
             </td>
           </tr>
+          <tr></tr>
           <tr>
-            <td className="border border-slate-300 p-2 text-sm">
-              Loading Outline
-            </td>
+            <td className="border border-slate-300 p-2 text-sm">Disabled Outline</td>
             <td className="border border-slate-300 p-2">
-              <CustomButton
-                variant="outline"
-                isLoading
-                loadingText="Saving"
-                label="Default Button"
-              />
+              <CustomButton variant="outline" disabled label="Save" />
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-slate-300 p-2 text-sm">Disabled Default</td>
+            <td className="border border-slate-300 p-2">
+              <CustomButton  disabled label="Save" />
             </td>
           </tr>
         </tbody>
