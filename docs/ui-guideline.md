@@ -31,3 +31,6 @@
 - text size with icon
     - text-sm
     - size ={16}
+
+- Button Component 
+   reference UiDesign only maintain reusability
