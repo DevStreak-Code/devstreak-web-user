@@ -1,12 +1,11 @@
-import { Button } from './components/ui/button'
+import DesignUI from "./pages/design-ui";
 
 function App() {
   return (
-    <>
-     
-     <Button>Hey</Button>
-    </>
-  )
+    <div className="p-2">
+      <DesignUI />
+    </div>
+  );
 }
 
-export default App
+export default App;
