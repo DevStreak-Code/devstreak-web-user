@@ -34,3 +34,6 @@
 
 - Button Component 
    reference UiDesign only maintain reusability
+
+- Input Component 
+   reference UiDesign only maintain reusability
