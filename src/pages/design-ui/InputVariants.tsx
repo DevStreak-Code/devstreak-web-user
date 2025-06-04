@@ -18,7 +18,8 @@ const InputVariants = () => {
         </thead>
         <tbody>
           <tr>
-            <td className="border border-slate-300 p-2 text-sm">
+            <td className="border border-slate-300 p-2 
+            text-sm">
               Simple Input
             </td>
             <td className="border border-slate-300 p-2">
