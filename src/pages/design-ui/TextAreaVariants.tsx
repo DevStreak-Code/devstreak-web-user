@@ -10,6 +10,7 @@ const TextAreaVariants = () => {
           title: "Basic Textarea",
           component: (
             <CustomTextArea
+              label="Basic Textarea"
               placeholder="Leave a comment"
             />
           ),
@@ -18,21 +19,33 @@ const TextAreaVariants = () => {
           title: "Required Textarea",
           component: (
             <CustomTextArea
+              label="Required Textarea"
               placeholder="Leave a comment"
               required={true}
             />
           ),
         },
         {
-            title: "Error in textarea",
-            component: (
-              <CustomTextArea
-                placeholder="Leave a comment"
-                required={true}
-                error="Invalid Message"
-              />
-            ),
-          },
+          title: "Error in textarea",
+          component: (
+            <CustomTextArea
+              label="Error in textarea"
+              placeholder="Leave a comment"
+              required={true}
+              error="Invalid Message"
+            />
+          ),
+        },
+        {
+          title: "Disable Textarea",
+          component: (
+            <CustomTextArea
+              placeholder="Leave a comment"
+              disabled={true}
+              label="Disabled Textarea"
+            />
+          ),
+        },
       ]}
     />
   );

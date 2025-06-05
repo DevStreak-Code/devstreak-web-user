@@ -1,6 +1,6 @@
 interface IUILayoutVariant {
   title: string;
-  component: React.ReactNode;
+  component: React.ReactNode; // Component Type
 }
 
 interface IUILayoutProps {
