@@ -32,7 +32,7 @@
   - Commit Message should be in English
 
   eg: Feature => Switch Button
-    commit message => "Feature | Switch Button | WIP"   
+    commit message => "Feature | Switch Button | disabled condition added"   
 
 
 # How to delete branch 
