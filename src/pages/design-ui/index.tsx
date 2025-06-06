@@ -4,7 +4,7 @@ import InputVariants from "./InputVariants";
 import SwitchButtonVariants from "./SwitchButtonVariants";
 import TextAreaVariants from "./TextAreaVariants";
 import RadioVariants from "./RadioVariants";
-
+import CardVariants from './CardVariants';
 
 const DesignUI = () => {
   return (
@@ -15,8 +15,10 @@ const DesignUI = () => {
       <TextAreaVariants />
       <ButtonVariants />
       <InputVariants />
+      <CardVariants/>
     </div>
   );
 };
 
 export default DesignUI;
+
