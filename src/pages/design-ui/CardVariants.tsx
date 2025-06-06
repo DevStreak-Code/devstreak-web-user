@@ -2,7 +2,7 @@ import CustomCard from '../../components/CustomCard';
 
 const CardVariants = () => {
   return ( 
-   <div className="p-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+   <div className="p-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4" >
 
       <CustomCard
         imgUrl="https://tse1.mm.bing.net/th/id/OIP.psznP1mwFZNek7E9E7yL1QHaNK?rs=1&pid=ImgDetMain"
