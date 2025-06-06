@@ -1,6 +1,6 @@
 interface ICustomCardProps {
-  url: string;
-  title: string;
+  url?: string;
+  title?: string;
   alt?: "Paste your image here";
 }
 const CustomCard: React.FC<ICustomCardProps> = (props) => {
