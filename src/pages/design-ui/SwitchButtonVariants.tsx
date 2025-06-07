@@ -1,3 +1,4 @@
+import CustomSwitchButton from "@/components/CustomSwitchButton";
 import UILayout from "./UILayout";
 
 const SwitchButtonVariants = () => {
@@ -7,11 +8,11 @@ const SwitchButtonVariants = () => {
       variants={[
         {
           title: "Basic Switch Button",
-          component: <></>,
+          component: <CustomSwitchButton />,
         },
         {
           title: "Disable Switch Button",
-          component: <></>,
+          component: <CustomSwitchButton disabled={true} />,
         },
       ]}
     />

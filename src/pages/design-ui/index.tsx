@@ -1,13 +1,22 @@
+import AvatarVariants from "./AvatarVariants";
 import ButtonVariants from "./ButtonVariants";
 import InputVariants from "./InputVariants";
 import SwitchButtonVariants from "./SwitchButtonVariants";
 import TextAreaVariants from "./TextAreaVariants";
+import RadioVariants from "./RadioVariants";
+
 
 import CustomCard from "@/components/CustomCard";
 
 const DesignUI = () => {
   return (
+<<<<<<< HEAD
     <div className="w-full overflow-auto flex flex-col justify-center gap-10">
+=======
+    <div className="w-full overflow-auto flex flex-col  justify-center gap-10">
+      <RadioVariants />
+      <AvatarVariants />
+>>>>>>> adc19fc275c750a67a05aa9348e58ee62690ea81
       <SwitchButtonVariants />
       <TextAreaVariants />
       <ButtonVariants />
