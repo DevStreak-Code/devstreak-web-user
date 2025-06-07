@@ -7,7 +7,7 @@ import CustomCard from "@/components/CustomCard";
 
 const DesignUI = () => {
   return (
-    <div className="w-full overflow-auto flex flex-col  justify-center gap-10">
+    <div className="w-full overflow-auto flex  justify-center gap-10">
       {/* <SwitchButtonVariants />
       <TextAreaVariants />
       <ButtonVariants />

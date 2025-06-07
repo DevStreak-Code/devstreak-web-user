@@ -5,9 +5,9 @@ interface ICustomCardProps {
 
 const CustomCard: React.FC<ICustomCardProps> = (props) => {
   return (
-    <div className="boder boder-red-900 h-100 rounded-lg flex">
-      <div className="border border-red  h-90 w-4/10 m-5 p-5">
-        <div className=" boder boder-black w-full h-60">
+    <div className="border border-red-900 h-100 rounded-lg flex">
+      <div className="border border-red  h-90 w-full  p-2">
+        <div className=" border border-black w-full h-60">
           <img
             className="h-full w-full"
             src={props.url}
