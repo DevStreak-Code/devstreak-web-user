@@ -1,9 +1,9 @@
-import DesignUI from "./pages/design-ui";
+import RouterManager from "./features/RouterManager";
 
 function App() {
   return (
     <div className="p-2">
-      <DesignUI />
+      <RouterManager />
     </div>
   );
 }
