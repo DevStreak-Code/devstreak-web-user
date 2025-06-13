@@ -5,6 +5,7 @@ import ChangePassword from "../common/ChangePassword";
 import ResetPassword from "../common/ResetPassword";
 import RootPage from "./RootPage";
 import DesignUI from "../common/DesignUI";
+import SampleForm from "../sample/SampleForm";
 
 export const ROUTE_CONFIG = [
   {
@@ -36,6 +37,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.RESET_PASSWORD,
     component: <ResetPassword />,
     name: "Reset Password",
+  },
+  {
+    path: ROUTES.SAMPLE_FORM,
+    component: <SampleForm />,
+    name: "Sample Form",
   },
 ];
 

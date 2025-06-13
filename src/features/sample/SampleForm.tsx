@@ -1,0 +1,202 @@
+/*
+1- Create Basic HTML
+   - each field should have 
+      - name & id | Mandatory
+      - type | Mandatory
+      - placeholder , label, required, disabled (optional)
+
+2- Install 'react-hook-form'
+   1- register each input with react-hook-form using 'register' from  useForm, so it can controlled by React Hook Form
+      eg: (Basic Method)
+      
+      const {name,ref,onChange,onBlur} = register('username');
+
+      /- Manually Bind 
+      <input
+            type="text"
+            id="username"
+            name={name}
+            ref={ref}
+            onChange={onChange}
+            onBlur={onBlur}
+        />
+
+    /- Pro way
+      
+    <input
+            type="text"
+            id="username"
+            {...register("username")} // directly use here (Note Id should be same as register name passing)
+                />
+3- How to test (using DevTool)
+   - To test, we can use DevTool provided by react-hook-form
+   - Install '@hookform/devtools'
+   - Wrap <form> with <DevTool control={control}> // destructure control from register
+   - Now we can see all the data in DevTool
+
+4 - How to submit data
+     - define a function when submit button press  eg: onSubmit
+     - destructre handleSubmit from form object
+     - BIND : form className="space-y-4" onSubmit={handleSubmit(onSubmit)}
+     - Typescript error
+        const form = useForm<TFormValues>();
+         const onSubmit = (data: TFormValues) => {
+                        console.log("form submitted", data);
+                         };
+5- validation
+    - noValidate | remove browser validation
+    -Add input filed this ==>      {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Please enter valid email",
+              },
+            })}
+    Note - Validation occur only when form submitted default
+  
+6- Error Messages show to UI
+  const {formState} = useForm();
+  const {errors} = formState
+
+  eg: errors.email.message | use this in UI to show the errors
+
+7- Custom Validation (in register)
+  - Way 1: 
+
+    validate: (fieldValue) => {
+                return (
+                   fieldValue !== "admin@gmail.com" || "Enter Different Email its reserved"
+               );
+             },
+
+  - Way 2
+           validate: {
+                notAdmin: (fieldValue) => {
+                  return (
+                    fieldValue !== "admin@gmail.com" ||
+                    "Enter Different Email its reserved"
+                  );
+                },
+                notBlackListed: (fieldValue) => {
+                  return !fieldValue.endsWith("yahoo.com") || 'Yahoo.com is blacklisted or not allowed';
+                },
+              },
+  
+*/
+
+type TFormValues = {
+  username: string;
+  email: string;
+  channel: string;
+};
+import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
+
+const SampleForm = () => {
+  const form = useForm<TFormValues>();
+  const { register, control, handleSubmit, formState } = form;
+  const { errors } = formState;
+
+  const onSubmit = (data: TFormValues) => {
+    console.log("form submitted", data);
+  };
+  return (
+    <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
+      <h2 className="text-xl font-semibold mb-4 text-gray-700">User Details</h2>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <div>
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            {...register("username", {
+              required: "User name is required",
+            })}
+            placeholder="Enter your username"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <br />
+          <p className="text-destructive text-xs">{errors.username?.message}</p>
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Please enter valid email",
+              },
+              //   validate: (fieldValue) => {
+              //     return (
+              //       fieldValue !== "admin@gmail.com" || "Enter Different Email its reserved"
+              //     );
+              //   },
+              validate: {
+                notAdmin: (fieldValue) => {
+                  return (
+                    fieldValue !== "admin@gmail.com" ||
+                    "Enter Different Email its reserved"
+                  );
+                },
+                notBlackListed: (fieldValue) => {
+                  return !fieldValue.endsWith("yahoo.com") || 'Yahoo.com is blacklisted or not allowed';
+                },
+              },
+            })}
+            placeholder="Enter your email"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <br />
+          <p className="text-destructive text-xs">{errors.email?.message}</p>
+        </div>
+
+        <div>
+          <label
+            htmlFor="channel"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Channel
+          </label>
+          <input
+            type="text"
+            id="channel"
+            {...register("channel", {
+              required: {
+                value: true,
+                message: " Channel is required",
+              },
+            })}
+            placeholder="Enter your channel"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <br />
+          <p className="text-destructive text-xs">{errors.channel?.message}</p>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+        >
+          Submit
+        </button>
+      </form>
+      <DevTool control={control} />
+    </div>
+  );
+};
+
+export default SampleForm;
