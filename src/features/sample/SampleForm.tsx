@@ -110,6 +110,12 @@
    
 11- Working with nested objects eg: social has facebook & twitter
    -  {...register("social.twitter")}
+
+12- Working with arrays (Eg: two phone numbers)
+   - default values ==> phoneNumbers:["",""];
+   - create two input field for phone numbers 
+   -   {...register("phoneNumbers.0")}
+   -   {...register("phoneNumbers.1")}
   
 */
 
@@ -121,6 +127,7 @@ type TFormValues = {
     twitter: string;
     facebook: string;
   };
+  phoneNumbers: string[];
 };
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
@@ -135,6 +142,7 @@ const SampleForm = () => {
         facebook: "",
         twitter: "",
       },
+      phoneNumbers:["",""]
     },
   });
   const { register, control, handleSubmit, formState } = form;
@@ -251,7 +259,7 @@ const SampleForm = () => {
 
         <div>
           <label
-            htmlFor="twitter"
+            htmlFor="facebook"
             className="block text-sm font-medium text-gray-600"
           >
             Facebook
@@ -261,6 +269,39 @@ const SampleForm = () => {
             id="facebook"
             {...register("social.facebook")}
             placeholder="Enter your facebook handle"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+
+        <div>
+          <label
+            htmlFor="primary-phone"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Primary Phone Numbre
+          </label>
+          <input
+            type="text"
+            id="primary-phone"
+            {...register("phoneNumbers.0")}
+            placeholder="Enter your primary phone number"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="secondary-phone"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Secondary Phone Number
+          </label>
+          <input
+            type="text"
+            id="secondary-phone"
+            {...register("phoneNumbers.1")}
+            placeholder="Enter your secondary phone number"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
         </div>
