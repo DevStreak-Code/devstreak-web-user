@@ -126,6 +126,19 @@
   });
   - use 'fields' into JSX
 
+  - Add & Remove fields use 'append' & 'remove' from useFieldArray and attach into JSX Buttons
+
+13 - Number field
+     ==>      {...register("age", {
+              valueAsNumber: true, // it should be true
+              required: true,
+            })}
+
+    Date Field
+     ==>  {...register("dob", {
+              required: true,
+              valueAsDate:true // this will give date obj otherwise you will get string
+            })}
 */
 
 type TFormValues = {
@@ -138,6 +151,8 @@ type TFormValues = {
   };
   phoneNumbers: string[];
   hobbies: { name: string }[];
+  age: number;
+  dob: Date;
 };
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
@@ -154,6 +169,8 @@ const SampleForm = () => {
       },
       phoneNumbers: ["", ""],
       hobbies: [{ name: "" }],
+      age: 0,
+      dob: new Date(),
     },
   });
   const { register, control, handleSubmit, formState } = form;
@@ -330,9 +347,8 @@ const SampleForm = () => {
           </label>
           {fields.map((field, i) => {
             return (
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center" key={field.id}>
                 <input
-                  key={field.id}
                   type="text"
                   {...register(`hobbies.${i}.name` as const)}
                   placeholder="Enter your Hobby"
@@ -355,6 +371,44 @@ const SampleForm = () => {
               Add Hobby
             </button>
           </div>
+        </div>
+
+        <div>
+          <label
+            htmlFor="age"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Age
+          </label>
+          <input
+            type="number"
+            id="age"
+            {...register("age", {
+              valueAsNumber: true,
+              required: true,
+            })}
+            placeholder="Enter your age"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="age"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Date of Birth
+          </label>
+          <input
+            type="date"
+            id="dob"
+            {...register("dob", {
+              required: true,
+              valueAsDate:true
+            })}
+            placeholder="Enter your age"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
         </div>
 
         <button
