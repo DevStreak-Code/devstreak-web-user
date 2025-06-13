@@ -81,6 +81,35 @@
                   return !fieldValue.endsWith("yahoo.com") || 'Yahoo.com is blacklisted or not allowed';
                 },
               },
+
+
+
+10 - Enhancement 
+     - set default values to form fields
+     - Way 1:
+     const form = useForm<TFormValues>({
+                    defaultValues: {
+                    username: "sachin",
+                    channel: "devstreak",
+                    email: "info@devstreak.in",
+                    },
+                });
+
+    - Way2 (API Call to set Default values)
+       const form = useForm<TFormValues>({
+       defaultValues: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/users/1");
+      const data = await res.json();
+       return {
+        channel: data.company.name,
+        username: data.username,
+        email: data.email,
+      };
+    },
+  });
+   
+11- Working with nested objects eg: social has facebook & twitter
+   -  {...register("social.twitter")}
   
 */
 
@@ -88,12 +117,26 @@ type TFormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
 };
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 const SampleForm = () => {
-  const form = useForm<TFormValues>();
+  const form = useForm<TFormValues>({
+    defaultValues: {
+      channel: "",
+      username: "",
+      email: "",
+      social: {
+        facebook: "",
+        twitter: "",
+      },
+    },
+  });
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
@@ -153,7 +196,10 @@ const SampleForm = () => {
                   );
                 },
                 notBlackListed: (fieldValue) => {
-                  return !fieldValue.endsWith("yahoo.com") || 'Yahoo.com is blacklisted or not allowed';
+                  return (
+                    !fieldValue.endsWith("yahoo.com") ||
+                    "Yahoo.com is blacklisted or not allowed"
+                  );
                 },
               },
             })}
@@ -185,6 +231,38 @@ const SampleForm = () => {
           />
           <br />
           <p className="text-destructive text-xs">{errors.channel?.message}</p>
+        </div>
+
+        <div>
+          <label
+            htmlFor="twitter"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Twitter
+          </label>
+          <input
+            type="text"
+            id="twitter"
+            {...register("social.twitter")}
+            placeholder="Enter your twitter handle"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="twitter"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Facebook
+          </label>
+          <input
+            type="text"
+            id="facebook"
+            {...register("social.facebook")}
+            placeholder="Enter your facebook handle"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
         </div>
 
         <button
