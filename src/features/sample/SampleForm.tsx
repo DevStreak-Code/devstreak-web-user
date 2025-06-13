@@ -116,7 +116,16 @@
    - create two input field for phone numbers 
    -   {...register("phoneNumbers.0")}
    -   {...register("phoneNumbers.1")}
-  
+
+11- Dynamic Fields to collect users phone numbers
+   - useFieldArray Hook , it works only with array of object  eg:  hobbies: { name: string }[];
+   - default values  ==>  hobbies: [{ name: "" }],
+   - const { fields } = useFieldArray({
+    name: "hobbies",
+    control,
+  });
+  - use 'fields' into JSX
+
 */
 
 type TFormValues = {
@@ -128,8 +137,9 @@ type TFormValues = {
     facebook: string;
   };
   phoneNumbers: string[];
+  hobbies: { name: string }[];
 };
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 const SampleForm = () => {
@@ -142,10 +152,16 @@ const SampleForm = () => {
         facebook: "",
         twitter: "",
       },
-      phoneNumbers:["",""]
+      phoneNumbers: ["", ""],
+      hobbies: [{ name: "" }],
     },
   });
   const { register, control, handleSubmit, formState } = form;
+
+  const { fields, append, remove } = useFieldArray({
+    name: "hobbies",
+    control,
+  });
   const { errors } = formState;
 
   const onSubmit = (data: TFormValues) => {
@@ -273,13 +289,12 @@ const SampleForm = () => {
           />
         </div>
 
-
         <div>
           <label
             htmlFor="primary-phone"
             className="block text-sm font-medium text-gray-600"
           >
-            Primary Phone Numbre
+            Primary Phone Number
           </label>
           <input
             type="text"
@@ -304,6 +319,42 @@ const SampleForm = () => {
             placeholder="Enter your secondary phone number"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
+        </div>
+
+        <div>
+          <label
+            htmlFor="Hobbies"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Hobbies
+          </label>
+          {fields.map((field, i) => {
+            return (
+              <div className="flex justify-between items-center">
+                <input
+                  key={field.id}
+                  type="text"
+                  {...register(`hobbies.${i}.name` as const)}
+                  placeholder="Enter your Hobby"
+                  className="mt-1 w-[90%] border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                />
+                {i > 0 && (
+                  <span className="text-destructive" onClick={() => remove(i)}>
+                    X
+                  </span>
+                )}
+              </div>
+            );
+          })}
+          <div className="w-full flex justify-end mt-2">
+            <button
+              type="button"
+              onClick={() => append({ name: "" })}
+              className="border-primary border px-1 transition-colors text-primary text-sm font-semibold py-1 rounded-md"
+            >
+              Add Hobby
+            </button>
+          </div>
         </div>
 
         <button
