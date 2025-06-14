@@ -247,6 +247,13 @@
     mode :"onSubmit"| "onBlur" |""
     2. 
 
+30 - Trigger manual validation (on an certain action)
+   const {trigger} = form
+
+   ==> onClick={()=>trigger()} // all validation shows with error on respective field
+   ==> onClick={()=>trigger("username")} // for single field
+
+
 */
 
 type TFormValues = {
@@ -292,6 +299,7 @@ const SampleForm = () => {
     getValues,
     setValue,
     reset,
+    trigger
   } = form;
 
   const { fields, append, remove } = useFieldArray({
@@ -626,6 +634,13 @@ const SampleForm = () => {
           className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Set Value
+        </button>
+        <button
+          type="button"
+          onClick={() => trigger()}
+          className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+        >
+          Validate
         </button>
       </form>
       <DevTool control={control} />
