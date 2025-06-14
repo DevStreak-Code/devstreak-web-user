@@ -256,7 +256,7 @@
 
 */
 
-type TFormValues = {
+export type TFormValues = {
   username: string;
   email: string;
   channel: string;

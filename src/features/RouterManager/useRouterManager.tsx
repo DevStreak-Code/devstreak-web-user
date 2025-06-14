@@ -6,6 +6,8 @@ import ResetPassword from "../common/ResetPassword";
 import RootPage from "./RootPage";
 import DesignUI from "../common/DesignUI";
 import SampleForm from "../sample/SampleForm";
+import SampleFormZod from "../sample/SampleFormZod";
+import SampleFormYup from "../sample/SampleFormYup";
 
 export const ROUTE_CONFIG = [
   {
@@ -41,7 +43,17 @@ export const ROUTE_CONFIG = [
   {
     path: ROUTES.SAMPLE_FORM,
     component: <SampleForm />,
-    name: "Sample Form",
+    name: "Sample Form | With React FORM Hook (without YUP/ZOD)",
+  },
+  {
+    path: ROUTES.SAMPLE_FORM_YUP,
+    component: <SampleFormYup />,
+    name: "Sample Form | With React FORM Hook with yup",
+  },
+  {
+    path: ROUTES.SAMPLE_FORM_ZOD,
+    component: <SampleFormZod />,
+    name: "Sample Form | With React FORM Hook zod",
   },
 ];
 
