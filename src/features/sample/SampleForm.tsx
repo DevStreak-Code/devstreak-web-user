@@ -191,6 +191,11 @@
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
 
+
+19- Handle Submission Errors
+     onSubmit={handleSubmit(onSubmit, onError)} : trigger onError when form submission failed
+
+
 */
 
 type TFormValues = {
@@ -206,7 +211,7 @@ type TFormValues = {
   age: number;
   dob: Date;
 };
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, type FieldErrors } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
 
@@ -251,6 +256,10 @@ const SampleForm = () => {
   //     return () => subscription.unsubscribe();
   //   }, [watch]);
 
+  const onError = (errors: FieldErrors<TFormValues>) => {
+    console.log("Errors:::", errors); // best place to log error and provide custom errors
+  };
+
   const onSubmit = (data: TFormValues) => {
     console.log("form submitted", data);
   };
@@ -274,7 +283,11 @@ const SampleForm = () => {
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form
+        className="space-y-4"
+        onSubmit={handleSubmit(onSubmit, onError)}
+        noValidate
+      >
         <div>
           <label
             htmlFor="username"
@@ -473,7 +486,7 @@ const SampleForm = () => {
             {...register("age", {
               valueAsNumber: true,
               required: "Enter Age",
-            //   disabled:true,
+              //   disabled:true,
               disabled: watch("username") === "", // as dependent field
             })}
             placeholder="Enter your age"
@@ -502,7 +515,7 @@ const SampleForm = () => {
 
         <button
           type="submit"
-          disabled={!isDirty}
+        //   disabled={!isDirty}
           className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
