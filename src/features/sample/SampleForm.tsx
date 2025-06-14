@@ -139,6 +139,14 @@
               required: true,
               valueAsDate:true // this will give date obj otherwise you will get string
             })}
+14 - Observed Value which is user try to type or enter
+     - using watch
+     -  {watch} = form
+     - const watchUsername = watch("username")  // single
+     - const watchValues =watch(['username','email']) // multiple filed      
+     - const watchAllValues =watch() // all values as object
+     - we can lift those value up using useEffect 
+
 */
 
 type TFormValues = {
@@ -156,6 +164,7 @@ type TFormValues = {
 };
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 
 const SampleForm = () => {
   const form = useForm<TFormValues>({
@@ -173,7 +182,7 @@ const SampleForm = () => {
       dob: new Date(),
     },
   });
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState, watch } = form;
 
   const { fields, append, remove } = useFieldArray({
     name: "hobbies",
@@ -181,12 +190,22 @@ const SampleForm = () => {
   });
   const { errors } = formState;
 
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("form values::::", values); // we can pass all these value to parent
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   const onSubmit = (data: TFormValues) => {
     console.log("form submitted", data);
   };
+
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
-      <h2 className="text-xl font-semibold mb-4 text-gray-700">User Details</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-700">
+      </h2>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
         <div>
           <label
@@ -404,7 +423,7 @@ const SampleForm = () => {
             id="dob"
             {...register("dob", {
               required: true,
-              valueAsDate:true
+              valueAsDate: true,
             })}
             placeholder="Enter your age"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
