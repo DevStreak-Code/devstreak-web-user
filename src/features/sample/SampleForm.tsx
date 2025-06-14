@@ -209,6 +209,22 @@
     - useful for tracking progress and outcome of form submission
     -State ==> {isSubmitting , isSubmitted , isSubmitSuccessful , submitCount} = formState
     - we can disable button while submitting and can show loader while submitting (isSubmitting)
+
+27 - Reset form
+   - reset form values to reset to default value or intial value
+
+   const {reset} = form
+
+   ==>onClick={reset}
+
+   - Reset form when submit is done (successful)
+   [Recommended]
+
+   useEffect(()=>{
+    if(isSubmitSuccessful){
+      reset()
+    }
+   },[isSubmitSuccessful])
 */
 
 type TFormValues = {
@@ -252,6 +268,7 @@ const SampleForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
 
   const { fields, append, remove } = useFieldArray({
@@ -310,6 +327,12 @@ const SampleForm = () => {
     });
   };
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+  
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
@@ -549,6 +572,14 @@ const SampleForm = () => {
           className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
+        </button>
+
+        <button
+          type="button"
+          onClick={() => reset()}
+          className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+        >
+          Reset
         </button>
 
         <button
