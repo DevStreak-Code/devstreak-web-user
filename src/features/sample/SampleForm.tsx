@@ -146,7 +146,13 @@
      - const watchValues =watch(['username','email']) // multiple filed      
      - const watchAllValues =watch() // all values as object
      - we can lift those value up using useEffect 
+15 -  get field values using getValues (when certain action perform ex: onClick)
+     - better from watch 
+     - not re-render
 
+     - getAllValues = getValues();
+     - getSingleValue = getValues('username');
+     - getMultipleValue = getValues(['username','email']);
 */
 
 type TFormValues = {
@@ -182,7 +188,7 @@ const SampleForm = () => {
       dob: new Date(),
     },
   });
-  const { register, control, handleSubmit, formState, watch } = form;
+  const { register, control, handleSubmit, formState, watch, getValues } = form;
 
   const { fields, append, remove } = useFieldArray({
     name: "hobbies",
@@ -190,22 +196,28 @@ const SampleForm = () => {
   });
   const { errors } = formState;
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("form values::::", values); // we can pass all these value to parent
-    });
+  //   useEffect(() => {
+  //     const subscription = watch((values) => {
+  //       console.log("form values::::", values); // we can pass all these value to parent
+  //     });
 
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  //     return () => subscription.unsubscribe();
+  //   }, [watch]);
 
   const onSubmit = (data: TFormValues) => {
     console.log("form submitted", data);
+    
   };
 
+  const handleGetValues = () => {
+    console.log("Get Value", getValues());
+    console.log(getValues("username"));
+    console.log(getValues("social.facebook"))
+    console.log(getValues(["username", "email"]));
+  };
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
-      <h2 className="text-xl font-semibold mb-4 text-gray-700">
-      </h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
         <div>
           <label
@@ -435,6 +447,14 @@ const SampleForm = () => {
           className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleGetValues()}
+          className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+        >
+          Get Value
         </button>
       </form>
       <DevTool control={control} />
