@@ -237,6 +237,15 @@
                   return res2.length === 0 || "Email Already exists";
                 },
 
+29 - Validation Mode
+    1.[Default] onSubmit - when form submit then only errors shows
+    2. "onBlur" - when user focus out of input field then only errors shows
+    3. "onTouched" - when user do anything then errors shows
+    4. "onChange" = trigger validation on each keystroke | Lead Multiple Render 
+    5. "all" - blur or change in all mode show errors
+
+    mode :"onSubmit"| "onBlur" |""
+    2. 
 
 */
 
@@ -272,6 +281,7 @@ const SampleForm = () => {
       age: 0,
       dob: new Date(),
     },
+    mode:"onSubmit"
   });
   const {
     register,
