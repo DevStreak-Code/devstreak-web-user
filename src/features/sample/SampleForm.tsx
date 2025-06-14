@@ -174,6 +174,22 @@
     const {dirtyFields, touchedFields ,isDirty} = formState
 
 
+18 - Disabled fields 
+    - in register we can do
+    - Note : when disabled field then validation not occur and value become undefined
+
+        <input
+            type="number"
+            id="age"
+            {...register("age", {
+              valueAsNumber: true,
+              required: "Enter Age",
+            //   disabled:true,
+              disabled: watch("username") === "", // as dependent field
+            })}
+            placeholder="Enter your age"
+            className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
 
 */
 
@@ -456,7 +472,9 @@ const SampleForm = () => {
             id="age"
             {...register("age", {
               valueAsNumber: true,
-              required: true,
+              required: "Enter Age",
+            //   disabled:true,
+              disabled: watch("username") === "", // as dependent field
             })}
             placeholder="Enter your age"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
