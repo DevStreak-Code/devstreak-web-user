@@ -1,16 +1,66 @@
-import { useForm } from "react-hook-form";
+/*
+- ZOD -Typescript first, Scheme validation library
+- resolves - register react-hook-form with zod
 
-const SampleFormZod = () => {
-  const form = useForm();
-  const { register } = form;
+installation
+- npm i zod @hookform/resolvers
+
+
+- How to use
+ import { z } from "zod";
+ import { zodResolvers } from "@hookform/resolvers/zod";
+
+const form = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      channel: "",
+    },
+    resolver: zodResolver(schema), // connect schema
+  });
+
+
+*/
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { DevTool } from "@hookform/devtools";
+
+const schema = z.object({
+  username: z.string().nonempty("User name is required"),
+  email: z
+    .string()
+    .nonempty("Email is required")
+    .email("Email not valid format"),
+  channel: z.string().nonempty("Channel is required"),
+});
+
+type TFormValues = {
+  channel: string;
+  email: string;
+  username: string;
+};
+const SampleFormYup = () => {
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      channel: "",
+    },
+    resolver: zodResolver(schema), // connect schema
+  });
+  const { register, handleSubmit, formState, control } = form;
+  const { errors } = formState;
+
+  const onSubmit = (data: TFormValues) => {
+    console.log(data);
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
-      <form
-        className="space-y-4"
-        // onSubmit={handleSubmit(onSubmit, onError)}
-        noValidate
-      >
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
         <div>
           <label
             htmlFor="username"
@@ -28,7 +78,7 @@ const SampleFormZod = () => {
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
           <br />
-          {/* <p className="text-destructive text-xs">{errors.username?.message}</p> */}
+          <p className="text-destructive text-xs">{errors.username?.message}</p>
         </div>
 
         <div>
@@ -41,44 +91,12 @@ const SampleFormZod = () => {
           <input
             type="email"
             id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Please enter valid email",
-              },
-              //   validate: (fieldValue) => {
-              //     return (
-              //       fieldValue !== "admin@gmail.com" || "Enter Different Email its reserved"
-              //     );
-              //   },
-              validate: {
-                notAdmin: (fieldValue) => {
-                  return (
-                    fieldValue !== "admin@gmail.com" ||
-                    "Enter Different Email its reserved"
-                  );
-                },
-                notBlackListed: (fieldValue) => {
-                  return (
-                    !fieldValue.endsWith("yahoo.com") ||
-                    "Yahoo.com is blacklisted or not allowed"
-                  );
-                },
-                emailAvailable: async (fieldValue) => {
-                  const res1 = await fetch(
-                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
-                  );
-                  const res2 = await res1.json();
-                  return res2.length === 0 || "Email Already exists";
-                },
-              },
-            })}
+            {...register("email")}
             placeholder="Enter your email"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
           <br />
-          {/* <p className="text-destructive text-xs">{errors.email?.message}</p> */}
+          <p className="text-destructive text-xs">{errors.email?.message}</p>
         </div>
 
         <div>
@@ -91,17 +109,12 @@ const SampleFormZod = () => {
           <input
             type="text"
             id="channel"
-            {...register("channel", {
-              required: {
-                value: true,
-                message: " Channel is required",
-              },
-            })}
+            {...register("channel")}
             placeholder="Enter your channel"
             className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
           <br />
-          {/* <p className="text-destructive text-xs">{errors.channel?.message}</p> */}
+          <p className="text-destructive text-xs">{errors.channel?.message}</p>
         </div>
 
         <button
@@ -112,9 +125,9 @@ const SampleFormZod = () => {
           Submit
         </button>
       </form>
+      <DevTool control={control} />
     </div>
   );
 };
 
-
-export default SampleFormZod
+export default SampleFormYup;
