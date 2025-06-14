@@ -225,6 +225,19 @@
       reset()
     }
    },[isSubmitSuccessful])
+
+28 - Async Email Validation
+   - eg: when we have to say email is already exists
+
+                emailAvailable: async (fieldValue) => {
+                  const res1 = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+                  const res2 = await res1.json();
+                  return res2.length === 0 || "Email Already exists";
+                },
+
+
 */
 
 type TFormValues = {
@@ -332,7 +345,7 @@ const SampleForm = () => {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
-  
+
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
@@ -394,6 +407,13 @@ const SampleForm = () => {
                     !fieldValue.endsWith("yahoo.com") ||
                     "Yahoo.com is blacklisted or not allowed"
                   );
+                },
+                emailAvailable: async (fieldValue) => {
+                  const res1 = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+                  const res2 = await res1.json();
+                  return res2.length === 0 || "Email Already exists";
                 },
               },
             })}
@@ -568,7 +588,7 @@ const SampleForm = () => {
 
         <button
           type="submit"
-          disabled={!isDirty || !isValid}
+          disabled={!isDirty}
           className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
