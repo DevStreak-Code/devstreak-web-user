@@ -195,7 +195,15 @@
 19- Handle Submission Errors
      onSubmit={handleSubmit(onSubmit, onError)} : trigger onError when form submission failed
 
+20 - Disable form
+    const {isDirty, isValid} = formState;
+    - when user never entered input
+      disabled ={!isDirty}
+    
+    - form state is invalid
+      disabled = {!isValid}
 
+      combine ==> disabled ={!isDirty || !isValid}
 */
 
 type TFormValues = {
@@ -245,7 +253,7 @@ const SampleForm = () => {
     name: "hobbies",
     control,
   });
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
   console.log({ touchedFields, dirtyFields });
 
   //   useEffect(() => {
@@ -515,7 +523,7 @@ const SampleForm = () => {
 
         <button
           type="submit"
-        //   disabled={!isDirty}
+            disabled={!isDirty || !isValid}
           className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
