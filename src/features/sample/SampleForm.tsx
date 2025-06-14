@@ -204,6 +204,11 @@
       disabled = {!isValid}
 
       combine ==> disabled ={!isDirty || !isValid}
+
+26 - Form Submission state
+    - useful for tracking progress and outcome of form submission
+    -State ==> {isSubmitting , isSubmitted , isSubmitSuccessful , submitCount} = formState
+    - we can disable button while submitting and can show loader while submitting (isSubmitting)
 */
 
 type TFormValues = {
@@ -253,8 +258,25 @@ const SampleForm = () => {
     name: "hobbies",
     control,
   });
-  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
-  console.log({ touchedFields, dirtyFields });
+  const {
+    errors,
+    touchedFields,
+    dirtyFields,
+    isDirty,
+    isValid,
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
+  } = formState;
+  console.log({
+    touchedFields,
+    dirtyFields,
+    isSubmitting,
+    isSubmitted, // being true after submission untill unless not reset
+    isSubmitSuccessful,
+    submitCount, //  no of time form submitted successfully
+  });
 
   //   useEffect(() => {
   //     const subscription = watch((values) => {
@@ -523,7 +545,7 @@ const SampleForm = () => {
 
         <button
           type="submit"
-            disabled={!isDirty || !isValid}
+          disabled={!isDirty || !isValid}
           className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
