@@ -153,6 +153,28 @@
      - getAllValues = getValues();
      - getSingleValue = getValues('username');
      - getMultipleValue = getValues(['username','email']);
+
+16-  set field value programatically using setValue
+     - {setValue} = form
+    setValue("username", "sachin"); // it doesnt register field not run validation , touch , dirty
+    setValue("email", "", {
+      shouldDirty: true, // update with register
+      shouldTouch: true, // update with register
+      shouldValidate: true, // will trigger error
+    });
+
+
+17- Touched  - means user interacted with field or not
+               if we click or focus on input then remove the focus : touched => true
+    Dirty -  means user modified the field or not
+            if we type something and prev value (default value) and current value is different then dirty ==> true
+   
+    isDirty - if all forms fields has been modified or not
+    we can access from formState
+    const {dirtyFields, touchedFields ,isDirty} = formState
+
+
+
 */
 
 type TFormValues = {
@@ -188,13 +210,22 @@ const SampleForm = () => {
       dob: new Date(),
     },
   });
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
 
   const { fields, append, remove } = useFieldArray({
     name: "hobbies",
     control,
   });
-  const { errors } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  console.log({ touchedFields, dirtyFields });
 
   //   useEffect(() => {
   //     const subscription = watch((values) => {
@@ -206,15 +237,24 @@ const SampleForm = () => {
 
   const onSubmit = (data: TFormValues) => {
     console.log("form submitted", data);
-    
   };
 
   const handleGetValues = () => {
     console.log("Get Value", getValues());
     console.log(getValues("username"));
-    console.log(getValues("social.facebook"))
+    console.log(getValues("social.facebook"));
     console.log(getValues(["username", "email"]));
   };
+
+  const handleSetValue = () => {
+    setValue("username", "sachin"); // it doesnt register field not run validation , touch , dirty
+    setValue("email", "", {
+      shouldDirty: true, // update with register
+      shouldTouch: true, // update with register
+      shouldValidate: true, // will trigger error
+    });
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
       <h2 className="text-xl font-semibold mb-4 text-gray-700"></h2>
@@ -444,7 +484,8 @@ const SampleForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+          disabled={!isDirty}
+          className="disabled:opacity-15 w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Submit
         </button>
@@ -455,6 +496,14 @@ const SampleForm = () => {
           className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
         >
           Get Value
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleSetValue()}
+          className="w-full bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-semibold py-2 rounded-md"
+        >
+          Set Value
         </button>
       </form>
       <DevTool control={control} />
