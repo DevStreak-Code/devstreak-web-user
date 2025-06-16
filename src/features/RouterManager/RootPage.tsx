@@ -4,7 +4,7 @@ import { ROUTE_CONFIG } from "./useRouterManager";
 const RootPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-screen h-screen overflow-auto flex items-center flex-col gap-2 p-4">
+    <div className="flex items-center flex-col gap-2 p-4">
       {ROUTE_CONFIG.map((route, index) => {
         if (index === 0) {
           return <></>;
