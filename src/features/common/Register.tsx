@@ -1,5 +1,11 @@
+import { PublicLayout } from "@/components/Layouts";
+
 const Register = () => {
-  return <div> Register Page</div>;
+  return (
+    <PublicLayout>
+      <div>Register Form</div>
+    </PublicLayout>
+  );
 };
 
-export default Register
+export default Register;
