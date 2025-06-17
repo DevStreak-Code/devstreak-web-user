@@ -56,11 +56,11 @@ Phase | Grooming | Development | So on
 
 branch name 
   type of : feature
-  ticket id - DEV-01
+  ticket id - DEV-02
   desc - register-form
   Source -- Master
-  branch name - feature/DEV-01-register-form
+  branch name - feature/DEV-02-Login-Form
   
-  Commit Message - Feature | DEV-01 | Form Created
-                   Feature | DEV-01 | Validation Added
-                   Feature | DEV-01 | Code Refactoring
+  Commit Message - Feature | DEV-02 | Form Created
+                   Feature | DEV-02 | Validation Added
+                   Feature | DEV-02 | Code Refactoring
