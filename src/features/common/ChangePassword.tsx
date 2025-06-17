@@ -3,14 +3,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PublicLayout } from "@/components/Layouts";
 
-// ✅ Zod Schema with validations
+
 const schema = z
   .object({
     newPassword: z
       .string()
+      .nonempty("New Password is  required")
       .min(6, "Password must be at least 6 characters")
-      .max(20, "Password must be at most 20 characters")
-      .nonempty("New Password is required"),
+      .max(20, "Password must be at most 20 characters"),
+    
     confirmPassword: z.string().nonempty("Confirm Password is required"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
@@ -24,7 +25,7 @@ const ChangePassword = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -78,12 +79,7 @@ const ChangePassword = () => {
 
             <button
               type="submit"
-              disabled={!isValid || isSubmitting}
-              className={`w-full py-2 rounded-md font-medium text-white ${
-                isValid
-                  ? "bg-[#147b74] hover:bg-[#0f615b]"
-                  : "bg-[#9dd2cf] cursor-not-allowed"
-              }`}
+              className="w-full py-2 rounded-md font-medium text-white bg-[#147b74] hover:bg-[#0f615b]"
             >
               {isSubmitting ? "Updating..." : "Submit"}
             </button>
