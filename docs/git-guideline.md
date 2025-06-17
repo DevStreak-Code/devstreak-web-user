@@ -46,3 +46,21 @@
 
 # Fetch new branches from remote (online)        
  - git fetch origin
+
+
+ # Branch Code Push Guideline as per JIRA ID
+
+Developer --> Ticket Assigned 
+
+Phase | Grooming | Development | So on
+
+branch name 
+  type of : feature
+  ticket id - DEV-01
+  desc - register-form
+  Source -- Master
+  branch name - feature/DEV-01-register-form
+  
+  Commit Message - Feature | DEV-01 | Form Created
+                   Feature | DEV-01 | Validation Added
+                   Feature | DEV-01 | Code Refactoring

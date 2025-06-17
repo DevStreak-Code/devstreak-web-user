@@ -2,7 +2,7 @@ import RouterManager from "./features/RouterManager";
 
 function App() {
   return (
-    <div className="p-2">
+    <div className="p-2 w-screen h-screen">
       <RouterManager />
     </div>
   );
