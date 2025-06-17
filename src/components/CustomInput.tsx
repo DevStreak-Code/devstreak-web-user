@@ -11,6 +11,9 @@ interface ICustomInputProps {
   disabled?: boolean;
   required?: boolean;
   isShowEndIcon?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 const CustomInput: React.FC<ICustomInputProps> = (props) => {
@@ -23,25 +26,32 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
     error,
     disabled,
     required,
+    ref,
+    onChange,
+    onBlur,
   } = props;
 
   const isPassword = type === "password";
-  const inputType = isPassword? (show? "text" : "password") : type;
+  const inputType = isPassword ? (show ? "text" : "password") : type;
   return (
     <div className="">
-      <label htmlFor={name} className="text-sm">
+      <label htmlFor={name} className="text-sm   font-medium text-gray-600">
         {label} {required ? <span className="text-destructive">*</span> : ""}
       </label>{" "}
       <br />
       <div className="relative">
         <Input
+          ref={ref}
           id={name}
           name={name}
           placeholder={placeholder}
           type={inputType}
+          onChange={onChange}
+          onBlur={onBlur}
           // defaultValue="invalid@email.com"
           aria-invalid={Boolean(error)}
           disabled={disabled}
+          className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
         />
         <div className="text-muted-foreground/80  absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
           {isPassword ? (

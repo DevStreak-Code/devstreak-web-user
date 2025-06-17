@@ -11,6 +11,8 @@ interface ButtonProps {
   isLoading?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   loadingText?: string;
+  className?: string;
+  type?: "button" | "reset" | "submit";
 }
 
 const CustomButton: React.FC<ButtonProps> = (props) => {
@@ -23,16 +25,20 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     onClick,
     isLoading,
     loadingText = "Loading",
+    className = "",
+    type = "button",
   } = props;
   return (
     <Button
       size="default"
+      type={type}
       variant={variant}
-      className={
-        disabled || isLoading
-          ? "cursor-not-allowed opacity-60"
-          : "cursor-pointer"
-      }
+      className={`
+       ${
+         disabled || isLoading
+           ? "cursor-not-allowed opacity-60"
+           : "cursor-pointer"
+       } ${className}`}
       disabled={disabled || isLoading}
       onClick={onClick}
     >
