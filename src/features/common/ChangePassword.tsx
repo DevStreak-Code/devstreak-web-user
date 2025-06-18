@@ -1,17 +1,17 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PublicLayout } from "@/components/Layouts";
-
+import CustomInput from "@/components/CustomInput";
+import CustomButton from "@/components/CustomButton";
 
 const schema = z
   .object({
     newPassword: z
       .string()
-      .nonempty("New Password is  required")
+      .nonempty("New Password is required")
       .min(6, "Password must be at least 6 characters")
       .max(20, "Password must be at most 20 characters"),
-    
     confirmPassword: z.string().nonempty("Confirm Password is required"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
@@ -28,63 +28,53 @@ const ChangePassword = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>({
+    defaultValues: {
+      newPassword: "",
+      confirmPassword: "",
+    },
     resolver: zodResolver(schema),
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit = (data: FormData) => {
     console.log("Password changed:", data);
     reset();
   };
 
   return (
     <PublicLayout>
-      <div className="min-h-screen flex items-start justify-center bg-white pt-20">
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
-          <h2 className="text-xl font-semibold mb-1">Change Password</h2>
-          <p className="text-gray-600 mb-4 text-sm">
-            Changing password for: <strong>example@email.com</strong>
-          </p>
+      <div className="max-w-sm mx-auto mt-10 bg-white shadow-md rounded-xl p-6 border border-gray-200">
+        <h2 className="text-xl font-semibold mb-1 text-gray-700">
+          Change Password
+        </h2>
+        <p className="text-gray-600 mb-4 text-sm">
+          Changing password for: <strong>example@email.com</strong>
+        </p>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <label className="block mb-1 font-medium">New Password</label>
-              <input
-                type="password"
-                placeholder="Enter new password"
-                {...register("newPassword")}
-                className="w-full px-4 py-2 border rounded-md outline-none focus:ring-2 focus:ring-[#147b74]"
-              />
-              {errors.newPassword && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.newPassword.message}
-                </p>
-              )}
-            </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+          <CustomInput
+            label="New Password"
+            type="password"
+            placeholder="Enter new password"
+            error={errors.newPassword?.message}
+            {...register("newPassword")}
+          />
 
-            <div>
-              <label className="block mb-1 font-medium">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm password"
-                {...register("confirmPassword")}
-                className="w-full px-4 py-2 border rounded-md outline-none focus:ring-2 focus:ring-[#147b74]"
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.confirmPassword.message}
-                </p>
-              )}
-            </div>
+          <CustomInput
+            label="Confirm Password"
+            type="password"
+            placeholder="Confirm password"
+            error={errors.confirmPassword?.message}
+            {...register("confirmPassword")}
+          />
 
-            <button
-              type="submit"
-              className="w-full py-2 rounded-md font-medium text-white bg-[#147b74] hover:bg-[#0f615b]"
-            >
-              {isSubmitting ? "Updating..." : "Submit"}
-            </button>
-          </form>
-        </div>
+          <CustomButton
+            type="submit"
+            label={isSubmitting ? "Updating..." : "Submit"}
+            className="w-full"
+            disabled={isSubmitting}
+          />
+        </form>
       </div>
     </PublicLayout>
   );
