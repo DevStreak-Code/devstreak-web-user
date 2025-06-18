@@ -37,10 +37,10 @@ const Register: React.FC = () => {
   };
   return (
     <PublicLayout>
-      <div className="min-h-screen flex items-center justify-center ">
+      <div className="max-w-md mx-auto mt-30 bg-white shadow-md rounded-xl p-6 border border-gray-200 ">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white p-8 rounded-xl w-full max-w-md"
+          className="space-y-4"
           noValidate
         >
           <h2 className="text-2xl font-bold mb-6 text-center">REGISTER HERE</h2>
