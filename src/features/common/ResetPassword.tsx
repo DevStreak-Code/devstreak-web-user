@@ -1,76 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomInput from "@/components/CustomInput";
+import CustomButton from "@/components/CustomButton";
 import { PublicLayout } from "@/components/Layouts";
 
 const schema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
 });
 
-type ResetFormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 const ResetPassword: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<ResetFormData>({
+    formState: { errors, isValid },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: "onChange",
   });
 
-  const [message, setMessage] = React.useState("");
-
-  const onSubmit = (data: ResetFormData) => {
-    setMessage("Sending reset link...");
+  const onSubmit = (data: FormData) => {
+    setLoading(true);
     setTimeout(() => {
-      setMessage(`Reset link sent to: ${data.email}`);
-      reset(); // clears the form
-    }, 1000);
+      setLoading(false);
+      alert(`Reset link sent to: ${data.email}`);
+    }, 1500);
   };
 
   return (
     <PublicLayout>
-      <div className="min-h-screen flex items-center justify-center bg-white px-4">
-        <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
-            Reset Password
-          </h2>
-          <p className="text-center text-gray-600 mb-6">
-            Enter your email to receive a reset link.
+      <div className="flex items-center justify-center min-h-screen p-4">
+        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <h2 className="text-xl font-semibold text-center mb-2">Forgot Password?</h2>
+          <p className="text-sm text-gray-600 text-center mb-6">
+            Enter your registered email and we’ll send you a reset link.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
+            <CustomInput
+              label="Email"
               placeholder="Enter your email"
-              className={`w-full px-3 py-2 border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } rounded-md mb-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+              type="email"
               {...register("email")}
+              error={errors.email?.message}
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mb-2">
-                {errors.email.message}
-              </p>
-            )}
 
-            <button
+            <CustomButton
+              label="Send Reset Link"
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-teal-700 hover:bg-teal-800 text-white py-2 rounded-md transition"
-            >
-              {isSubmitting ? "Sending..." : "Send Reset Link"}
-            </button>
+              disabled={!isValid || loading}
+              isLoading={loading}
+              className="mt-4 w-full"
+            />
           </form>
-
-          {message && (
-            <p className="mt-4 text-sm text-green-600 text-center">{message}</p>
-          )}
         </div>
       </div>
     </PublicLayout>
