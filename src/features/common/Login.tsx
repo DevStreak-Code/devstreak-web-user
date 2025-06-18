@@ -1,19 +1,20 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { PublicLayout } from '@/components/Layouts';
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PublicLayout } from "@/components/Layouts";
+import CustomInput from "@/components/CustomInput";
+import CustomButton from "@/components/CustomButton";
 
 const loginSchema = z.object({
   email: z
     .string()
-    .nonempty('Email is required')
-    .email('Invalid email'),
+    .nonempty("Email is required")
+    .email("Invalid email"),
   password: z
     .string()
-    .nonempty('Password is required')
-    .min(6, 'Password must be at least 6 characters')
-    .max(20, 'Password must be at most 20 characters'),
+    .nonempty("Password is required")
+    .min(6, "Password must be at least 6 characters")
+    .max(20, "Password must be at most 20 characters"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -25,11 +26,11 @@ const Login = () => {
     formState: { errors, isValid, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: 'onChange',
+    mode: "onChange",
   });
 
   const onSubmit = (data: LoginFormData) => {
-    console.log('Login Success:', data);
+    console.log("Login Success:", data);
   };
 
   return (
@@ -44,56 +45,30 @@ const Login = () => {
             Login
           </h2>
 
-          {/* Email Field */}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              {...register('email')}
-              className={`w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 ${
-                errors.email
-                  ? 'border-red-500 focus:ring-red-200'
-                  : 'border-gray-300border-2 border-teal-600 focus:ring-teal-45'
-              }`}
-            />
-            {errors.email && (
-              <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
-            )}
-          </div>
+        
+          <CustomInput
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            error={errors.email?.message}
+            {...register("email")}
+          />
 
-          {/* Password Field */}
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-semibold mb-2 text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              {...register('password')}
-              className={`w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 ${
-                errors.password
-                  ? 'border-red-500 focus:ring-red-200'
-                  :  'border-gray-300border-2 border-teal-600 focus:ring-teal-45'
-              }`}
-            />
-            {errors.password && (
-              <p className="text-sm text-red-600 mt-1">{errors.password.message}</p>
-            )}
-          </div>
+        
+          <CustomInput
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            error={errors.password?.message}
+            {...register("password")}
+          />
 
-          {/* Submit Button */}
-          <button
+          <CustomButton
             type="submit"
+            label={isSubmitting ? "Logging in..." : "Submit"}
+            className="w-full"
             disabled={!isValid || isSubmitting}
-            className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-2 rounded-xl transition duration-300 disabled:opacity-50"
-          >
-            {isSubmitting ? 'Logging in...' : 'Submit'}
-          </button>
+          />
         </form>
       </div>
     </PublicLayout>
