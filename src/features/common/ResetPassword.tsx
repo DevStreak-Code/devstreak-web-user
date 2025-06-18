@@ -34,31 +34,31 @@ const ResetPassword: React.FC = () => {
 
   return (
     <PublicLayout>
-      <div className="flex items-center justify-center min-h-screen p-4">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-xl font-semibold text-center mb-2">Forgot Password?</h2>
-          <p className="text-sm text-gray-600 text-center mb-6">
-            Enter your registered email and we’ll send you a reset link.
-          </p>
+      <div className="max-w-md mx-auto mt-30 bg-white shadow-md rounded-xl p-6 border border-gray-200 ">
+        <h2 className="text-xl font-semibold text-center mb-2">
+          Forgot Password?
+        </h2>
+        <p className="text-sm text-gray-600 text-center mb-6">
+          Enter your registered email and we’ll send you a reset link.
+        </p>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <CustomInput
-              label="Email"
-              placeholder="Enter your email"
-              type="email"
-              {...register("email")}
-              error={errors.email?.message}
-            />
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <CustomInput
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
+            {...register("email")}
+            error={errors.email?.message}
+          />
 
-            <CustomButton
-              label="Send Reset Link"
-              type="submit"
-              disabled={!isValid || loading}
-              isLoading={loading}
-              className="mt-4 w-full"
-            />
-          </form>
-        </div>
+          <CustomButton
+            label="Send Reset Link"
+            type="submit"
+            disabled={!isValid || loading}
+            isLoading={loading}
+            className="mt-4 w-full"
+          />
+        </form>
       </div>
     </PublicLayout>
   );
