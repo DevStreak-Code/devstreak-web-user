@@ -2,6 +2,7 @@ export const SAMPLE_CODE_ROUTE = {
   SAMPLE_FORM: "/sample-form",
   SAMPLE_FORM_YUP: "/sample-form-yup",
   SAMPLE_FORM_ZOD: "/sample-form-zod",
+  SAMPLE_TODO_CRUD:'/sample-todo-crud'
 };
 
 export const COMMON_ROUTES = {

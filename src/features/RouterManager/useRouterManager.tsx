@@ -9,6 +9,7 @@ import SampleForm from "../sample/SampleForm";
 import SampleFormZod from "../sample/SampleFormZod";
 import SampleFormYup from "../sample/SampleFormYup";
 import RecruiterOnboarding from "../recruiter/onboarding";
+import SampleTodoApi from "../sample/SampleTodoAPI";
 
 export const ROUTE_CONFIG = [
   {
@@ -60,6 +61,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.RECRUITER_ONBOARDING,
     component: <RecruiterOnboarding />,
     name: "Recruiter Onboarding",
+  },
+  {
+    path: ROUTES.SAMPLE_TODO_CRUD,
+    component: <SampleTodoApi />,
+    name: "Sample Todo Crud | With React Query",
   },
 ];
 
