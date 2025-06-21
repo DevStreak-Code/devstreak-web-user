@@ -4,12 +4,12 @@ import Register from "../common/Register";
 import ChangePassword from "../common/ChangePassword";
 import ResetPassword from "../common/ResetPassword";
 import RootPage from "./RootPage";
-import DesignUI from "../common/DesignUI";
 import SampleForm from "../sample/SampleForm";
 import SampleFormZod from "../sample/SampleFormZod";
 import SampleFormYup from "../sample/SampleFormYup";
 import RecruiterOnboarding from "../recruiter/onboarding";
 import SampleTodoApi from "../sample/SampleTodoAPI";
+import DesignUI from "../sample/DesignUI";
 
 export const ROUTE_CONFIG = [
   {
