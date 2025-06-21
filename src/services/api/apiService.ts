@@ -1,10 +1,10 @@
+import { toastError } from "@/components/CustomToast/utils";
 import { QueryClient } from "@tanstack/react-query";
 import axios, {
   type AxiosInstance,
   type AxiosRequestConfig,
   AxiosError,
 } from "axios";
-import { toast } from "sonner";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -86,15 +86,13 @@ export class ApiService {
 
   private handleError(error: AxiosError<unknown>): void {
     const normalizedError = this.normalizeError(error);
-
-    toast.error(normalizedError.message, {
-      duration: 5000,
-      position: "top-center",
-    });
+    
+    let errMsg = normalizedError.message;
 
     if (normalizedError.statusCode === 401) {
-      console.warn("Unauthorized – redirecting or logging out");
+      errMsg = "Unauthorized – redirecting or logging out";
     }
+    toastError(errMsg);
   }
 
   public async get<TResponse>(
