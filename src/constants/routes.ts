@@ -16,7 +16,12 @@ export const COMMON_ROUTES = {
   //   NOT_FOUND: "/not-found",
 };
 
+export const RECRUITER_ROUTES = {
+  RECRUITER_ONBOARDING: "/recruiter/onboarding",
+};
+
 export const ROUTES = {
   ...SAMPLE_CODE_ROUTE,
   ...COMMON_ROUTES,
+  ...RECRUITER_ROUTES,
 };

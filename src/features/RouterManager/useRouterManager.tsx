@@ -8,6 +8,7 @@ import DesignUI from "../common/DesignUI";
 import SampleForm from "../sample/SampleForm";
 import SampleFormZod from "../sample/SampleFormZod";
 import SampleFormYup from "../sample/SampleFormYup";
+import RecruiterOnboarding from "../recruiter/onboarding";
 
 export const ROUTE_CONFIG = [
   {
@@ -54,6 +55,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.SAMPLE_FORM_ZOD,
     component: <SampleFormZod />,
     name: "Sample Form | With React FORM Hook zod",
+  },
+  {
+    path: ROUTES.RECRUITER_ONBOARDING,
+    component: <RecruiterOnboarding />,
+    name: "Recruiter Onboarding",
   },
 ];
 
