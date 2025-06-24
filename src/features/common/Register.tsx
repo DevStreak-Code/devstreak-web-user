@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
+import axios from "axios";
 
 // Zod
 const registerSchema = z
@@ -36,7 +37,14 @@ const Register: React.FC = () => {
   });
 
   const onSubmit = (data: RegisterFormData) => {
-    console.log("Form Submitted:", data);
+    axios
+      .post("https://devstreak-be.onrender.com/register", data)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <PublicLayout>
