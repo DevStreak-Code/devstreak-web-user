@@ -36,6 +36,7 @@ const Register: React.FC = () => {
     mode: "onChange",
   });
 
+  // Post API
   const onSubmit = (data: RegisterFormData) => {
     axios
       .post("https://devstreak-be.onrender.com/register", data)
