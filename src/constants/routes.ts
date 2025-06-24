@@ -19,6 +19,7 @@ export const COMMON_ROUTES = {
 
 export const RECRUITER_ROUTES = {
   RECRUITER_ONBOARDING: "/recruiter/onboarding",
+  RECRUITER_ADD_EMPLOYEE: "/recruiter/add-employee",
 };
 
 export const ROUTES = {

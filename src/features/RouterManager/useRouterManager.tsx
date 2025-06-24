@@ -10,6 +10,7 @@ import SampleFormYup from "../sample/SampleFormYup";
 import RecruiterOnboarding from "../recruiter/onboarding";
 import SampleTodoApi from "../sample/SampleTodoAPI";
 import DesignUI from "../sample/DesignUI";
+import AddEmployee from "../recruiter/add-employee";
 
 export const ROUTE_CONFIG = [
   {
@@ -66,6 +67,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.SAMPLE_TODO_CRUD,
     component: <SampleTodoApi />,
     name: "Sample Todo Crud | With React Query",
+  },
+  {
+    path: ROUTES.RECRUITER_ADD_EMPLOYEE,
+    component: <AddEmployee />,
+    name: "Recruiter Add Employee",
   },
 ];
 
