@@ -8,12 +8,15 @@ import CustomButton from "@/components/CustomButton";
 // Zod
 const registerSchema = z
   .object({
+    firstName: z.string().min(1, "First Name is required"),
+    lastName: z.string().min(1, "Last Name is required"),
     email: z.string().min(1, "Email is required").email("Invalid email"),
     password: z
       .string()
       .min(6, "Minimum 6 characters")
       .max(20, "Maximum 20 characters"),
     confirmPassword: z.string().min(1, "Confirm Password is required"),
+    role: z.literal("RECRUITER"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -44,107 +47,80 @@ const Register: React.FC = () => {
           noValidate
         >
           <h2 className="text-2xl font-bold mb-6 text-center">REGISTER HERE</h2>
+          {/* FirstName */}
+          <div className="mb-4">
+            <CustomInput
+              label="First Name"
+              type="text"
+              error={errors.firstName?.message}
+              placeholder="First Name"
+              {...register("firstName")}
+            />
+          </div>
+
+          <div className="mb-4">
+            {/* LastName */}
+
+            <CustomInput
+              label="Last Name"
+              type="text"
+              error={errors.lastName?.message}
+              placeholder="Last Name"
+              {...register("lastName")}
+            />
+          </div>
 
           {/* Email */}
-          {/* <div className="mb-4">
-            <label htmlFor="email" className="block font-medium mb-1">
-              Email
-            </label>
-            <input
+          <div className="mb-4">
+            <CustomInput
+              label="Email"
               type="email"
-              id="email"
+              error={errors.email?.message}
               placeholder="Enter your email"
               {...register("email")}
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div> */}
-          <div className="mb-4">
-
-          <CustomInput
-            label="Email"
-            type="email"
-            error={errors.email?.message}
-            placeholder="Enter your email"
-            {...register("email")}
-            />
-            </div>
+          </div>
 
           {/* Password */}
-          {/* <div className="mb-4">
-            <label htmlFor="password" className="block font-medium mb-1">
-              Password
-            </label>
-            <input
+          <div className="mb-4">
+            <CustomInput
+              label="Password"
+              error={errors.password?.message}
               type="password"
-              id="password"
               placeholder="Enter your password"
               {...register("password")}
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div> */}
-          <div className="mb-4">
-
-          <CustomInput
-            label="Password"
-            error={errors.password?.message}
-            type="password"
-            placeholder="Enter your password"
-            {...register("password")}
-            />
-            </div>
+          </div>
 
           {/* Confirm Password */}
-          {/* <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block font-medium mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              placeholder="Re-enter your password"
-              {...register("confirmPassword")}
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div> */}
           <div className="mb-4">
-
-          <CustomInput
-            label=" Confirm Password"
-            error={errors.confirmPassword?.message}
-            type="password"
-            placeholder="Enter your password"
-            {...register("confirmPassword")}
+            <CustomInput
+              label=" Confirm Password"
+              error={errors.confirmPassword?.message}
+              type="password"
+              placeholder="Enter your password"
+              {...register("confirmPassword")}
             />
-
-            </div>
+          </div>
+          {/* Role */}
+          <div className="mb-4">
+            <CustomInput
+              label="Role"
+              error={errors.role?.message}
+              type="text"
+              placeholder="Role Here"
+              defaultValue="RECRUITER"
+              {...register("role")}
+            />
+          </div>
 
           {/* Submit Button */}
-          {/* <button
+          <CustomButton
+            label="Register"
+            className="w-full"
             type="submit"
             disabled={!isValid}
-            className={`w-full bg-blue-600 text-white py-2 rounded-md font-semibold ${
-              !isValid ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
-            }`}
-          >
-            Continue
-          </button> */}
-          
-          <CustomButton label="Register" className="w-full" type="submit" disabled={!isValid}/>
+          />
         </form>
       </div>
     </PublicLayout>
