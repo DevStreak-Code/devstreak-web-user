@@ -1,57 +1,33 @@
 import { PublicLayout } from "@/components/Layouts";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
-import axios from "axios";
-
-// Zod
-const registerSchema = z
-  .object({
-    firstName: z.string().min(1, "First Name is required"),
-    lastName: z.string().min(1, "Last Name is required"),
-    email: z.string().min(1, "Email is required").email("Invalid email"),
-    password: z
-      .string()
-      .min(6, "Minimum 6 characters")
-      .max(20, "Maximum 20 characters"),
-    confirmPassword: z.string().min(1, "Confirm Password is required"),
-    role: z.literal("RECRUITER"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
-
-type RegisterFormData = z.infer<typeof registerSchema>;
+import { useRegisterMutation } from "./UseRegisterQuery";
+import { useRegisterForm } from "./UseRegister";
 
 const Register: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
-    mode: "onChange",
-  });
+  } = useRegisterForm();
 
-  // Post API
-  const onSubmit = (data: RegisterFormData) => {
-    axios
-      .post("https://devstreak-be.onrender.com/register", data)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const { mutate, isPending } = useRegisterMutation();
+
+  const onsubmit = (data: any) => {
+    mutate(data, {
+      onSuccess: (res) => {
+        console.log("Succeeded", res);
+      },
+      onError: (err) => {
+        console.log("Error", err);
+      },
+    });
   };
   return (
     <PublicLayout>
       <div className="max-w-md mx-auto mt-30 bg-white shadow-md rounded-xl p-6 border border-gray-200 ">
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onsubmit)}
           className="space-y-4"
           noValidate
         >
@@ -128,7 +104,7 @@ const Register: React.FC = () => {
             label="Register"
             className="w-full"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isPending}
           />
         </form>
       </div>
