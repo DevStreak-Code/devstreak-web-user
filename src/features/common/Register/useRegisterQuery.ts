@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toastSuccess } from "@/components/CustomToast/utils";
-import type { RegisterFormData } from "./UseRegister";
+import type { RegisterFormData } from "./useRegister";
 import { ApiService } from "@/services/api/apiService";
 
 const useRegisterQuery = () => {
