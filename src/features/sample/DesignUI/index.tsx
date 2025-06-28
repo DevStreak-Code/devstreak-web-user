@@ -5,6 +5,7 @@ import SwitchButtonVariants from "./SwitchButtonVariants";
 import TextAreaVariants from "./TextAreaVariants";
 import RadioVariants from "./RadioVariants";
 import AvatarVariants from "./AvatarVariants";
+import CustomMultiSelectVariants from "./CustomMultiSelectVariants";
 
 
 const DesignUI = () => {
@@ -16,6 +17,7 @@ const DesignUI = () => {
       <TextAreaVariants />
       <ButtonVariants />
       <InputVariants />
+      <CustomMultiSelectVariants/>
     </div>
   );
 };
