@@ -29,6 +29,7 @@ const CustomSelectVariants = () => {
                 label="Select Course"
                 placeholder="Select Course"
                 options={MOCK_OPTIONS}
+                
               />
             ),
           },
@@ -39,6 +40,7 @@ const CustomSelectVariants = () => {
                 label="Select Course"
                 placeholder="Select Course"
                 options={MOCK_OPTIONS}
+                error="Selected option is invalid"
               />
             ),
           },
@@ -49,6 +51,8 @@ const CustomSelectVariants = () => {
                 label="Select Course"
                 placeholder="Select Course"
                 options={MOCK_OPTIONS}
+                disabled={true}
+               
               />
             ),
           },
@@ -59,6 +63,8 @@ const CustomSelectVariants = () => {
                 label="Select Course"
                 placeholder="Select Course"
                 options={MOCK_OPTIONS}
+                 required={true}
+                
               />
             ),
           },
