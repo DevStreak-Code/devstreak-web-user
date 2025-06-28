@@ -1,7 +1,7 @@
 import { PublicLayout } from "@/components/Layouts";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
-import useRegister from "./UseRegister";
+import useRegister from "./useRegister";
 
 
 const Register = () => {
