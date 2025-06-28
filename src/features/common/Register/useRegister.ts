@@ -11,7 +11,6 @@ export const registerSchema = z
     email: z.string().email("Invalid email").min(1, "Email is required"),
     password: z.string().min(6, "Minimum 6 characters").max(20, "Maximum 20 characters"),
     confirmPassword: z.string().min(1, "Confirm Password is required"),
-    role: z.literal("RECRUITER"), // Enforce specific role
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

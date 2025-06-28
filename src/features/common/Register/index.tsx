@@ -7,7 +7,7 @@ import useRegister from "./useRegister";
 const Register = () => {
   const { handlers, state } = useRegister();
   const { register, handleSubmit } = handlers;
-  const { errors, isValid, isPending } = state;
+  const { errors, isPending } = state;
 
   return (
     <PublicLayout>
@@ -60,7 +60,7 @@ const Register = () => {
             label={isPending ? "Registering..." : "Register"}
             className="w-full"
             isLoading={isPending}
-            disabled={!isValid || isPending}
+            disabled={isPending}
           />
         </form>
       </div>
