@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 interface ICustomSelectProps {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   options: {
     label: string;
     value: string;

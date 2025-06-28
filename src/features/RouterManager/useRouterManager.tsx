@@ -11,6 +11,7 @@ import RecruiterOnboarding from "../recruiter/onboarding";
 import SampleTodoApi from "../sample/SampleTodoAPI";
 import DesignUI from "../sample/DesignUI";
 import AddEmployee from "../recruiter/add-employee";
+import SampleDynamicForm from "../sample/SampleDynamicForm";
 
 export const ROUTE_CONFIG = [
   {
@@ -72,6 +73,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.RECRUITER_ADD_EMPLOYEE,
     component: <AddEmployee />,
     name: "Recruiter Add Employee",
+  },
+  {
+    path: ROUTES.SAMPLE_DYNAMIC_FORM,
+    component: <SampleDynamicForm />,
+    name: "Sample Dynamic Form",
   },
 ];
 

@@ -5,7 +5,7 @@ import { useState } from "react";
 interface ICustomInputProps {
   name?: string;
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   type?: "text" | "password" | "email" | "number";
   error?: string;
   disabled?: boolean;

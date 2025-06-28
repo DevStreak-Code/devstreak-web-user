@@ -2,6 +2,7 @@ import { RadioGroupItem, RadioGroup } from "./ui/radio-group";
 
 interface ICustomRadioProps {
   disabled?: boolean;
+  options: { label: string; value: string }[];
 }
 const CustomRadio: React.FC<ICustomRadioProps> = (props) => {
   const { disabled } = props;

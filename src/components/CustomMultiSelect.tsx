@@ -2,7 +2,7 @@ import MultipleSelector, { type Option } from "@/components/ui/multiselect";
 
 interface ICustomMultiSelectProps {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   options: Option[];
 }
 
