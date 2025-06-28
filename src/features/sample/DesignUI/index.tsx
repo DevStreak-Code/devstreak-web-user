@@ -6,6 +6,7 @@ import RadioVariants from "./RadioVariants";
 import AvatarVariants from "./AvatarVariants";
 import CustomMultiSelectVariants from "./CustomMultiSelectVariant";
 import CustomDatePickerVariants from "./CustomDatePickerVariants";
+import CustomSelectVariants from "./CustomSelectVariants";
 
 const DesignUI = () => {
   return (
@@ -18,7 +19,7 @@ const DesignUI = () => {
       <InputVariants />
       <CustomMultiSelectVariants />
       <CustomDatePickerVariants />
-      
+      <CustomSelectVariants />
     </div>
   );
 };
