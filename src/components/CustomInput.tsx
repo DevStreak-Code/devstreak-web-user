@@ -9,6 +9,7 @@ interface ICustomInputProps {
   type?: "text" | "password" | "email" | "number";
   error?: string;
   disabled?: boolean;
+  defaultValue?: string;
   required?: boolean;
   isShowEndIcon?: boolean;
   ref?: React.Ref<HTMLInputElement>;
@@ -25,6 +26,7 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
     name,
     error,
     disabled,
+    defaultValue,
     required,
     ref,
     onChange,
@@ -45,6 +47,7 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
           id={name}
           name={name}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           type={inputType}
           onChange={onChange}
           onBlur={onBlur}
