@@ -3,6 +3,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import useRegister from "./UseRegister";
 
+
 const Register = () => {
   const { handlers, state } = useRegister();
   const { register, handleSubmit } = handlers;

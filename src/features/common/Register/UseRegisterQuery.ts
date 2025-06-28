@@ -1,20 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { toastSuccess } from "@/components/CustomToast/utils";
 import type { RegisterFormData } from "./UseRegister";
-
-const endPoint = "https://devstreak-be.onrender.com/register";
-
-const registerUser = async (formData: RegisterFormData) => {
-  const response = await axios.post(endPoint, formData);
-  return response.data;
-};
+import { ApiService } from "@/services/api/apiService";
 
 const useRegisterQuery = () => {
+  const apiService = new ApiService({
+    baseURL: "https://devstreak-be.onrender.com",
+  });
   const { mutate: registerAsync, isPending } = useMutation({
-    mutationFn: registerUser,
+    mutationFn: (payload: RegisterFormData) => {
+      return apiService.post<RegisterFormData>("/register", payload);
+    },
     onSuccess: () => {
-      toastSuccess("Registered successfully");
+      toastSuccess("Registered in successfully");
     },
   });
 

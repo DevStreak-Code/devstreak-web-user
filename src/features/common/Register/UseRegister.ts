@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import useRegisterQuery from "./UseRegisterQuery";
 
+
 export const registerSchema = z
   .object({
     firstName: z.string().min(1, "First Name is required"),
