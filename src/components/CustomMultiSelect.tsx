@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
-interface CustomMultiSelectProps {
+interface ICustomMultiSelectProps {
   name?: string;
   label?: string;
   placeholder: string;
@@ -15,7 +15,7 @@ interface CustomMultiSelectProps {
   onChange?: (values: string[]) => void;
 }
 
-const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
+const CustomMultiSelect: React.FC<ICustomMultiSelectProps> = ({
   placeholder,
   options,
   error,
