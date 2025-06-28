@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import useRegisterQuery from "./UseRegisterQuery";
+import useRegisterQuery from "./useRegisterQuery";
 
 
 export const registerSchema = z
