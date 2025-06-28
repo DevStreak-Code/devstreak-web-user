@@ -30,9 +30,6 @@ const useRegister = () => {
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     mode: "onChange",
-    defaultValues: {
-      role: "RECRUITER",
-    },
   });
 
   const onSubmit = (data: RegisterFormData) => {
