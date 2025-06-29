@@ -13,11 +13,15 @@ const CustomDatePickerVariants = () => {
           },
           {
             title: "Required",
-            component: <CustomDatePicker label="Required Date Picker" />,
+            component: (
+              <CustomDatePicker label="Required Date Picker" required={true} />
+            ),
           },
           {
             title: "Disabled",
-            component: <CustomDatePicker label="Disable Date Picker" />,
+            component: (
+              <CustomDatePicker label="Disable Date Picker" disabled={true} />
+            ),
           },
         ]}
       />
