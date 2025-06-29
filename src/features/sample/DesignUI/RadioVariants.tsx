@@ -8,12 +8,51 @@ const RadioVariants = () => {
       variants={[
         {
           title: "Default",
-          component: <CustomRadio />,
+          component: (
+            <CustomRadio
+              options={[
+                { label: "Eat", value: "1" },
+                { label: "Sleep", value: "2" },
+              ]}
+            />
+          ),
         },
 
         {
           title: "Disabled Radio",
-          component: <CustomRadio disabled={true} />,
+          component: (
+            <CustomRadio
+              disabled={true}
+              options={[
+                { label: "Eat", value: "1" },
+                { label: "Sleep", value: "2" },
+              ]}
+            />
+          ),
+        },
+        {
+          title: "Required Radio",
+          component: (
+            <CustomRadio
+              disabled={true}
+              options={[
+                { label: "Eat", value: "1" },
+                { label: "Sleep", value: "2" },
+              ]}
+            />
+          ),
+        },
+        {
+          title: "Error Radio",
+          component: (
+            <CustomRadio
+              disabled={true}
+              options={[
+                { label: "Eat", value: "1" },
+                { label: "Sleep", value: "2" },
+              ]}
+            />
+          ),
         },
       ]}
     />
