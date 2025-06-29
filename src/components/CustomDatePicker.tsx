@@ -17,6 +17,8 @@ interface ICustomDatePickerProps {
   onBlur?: () => void;
   error?: string;
   name?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 function dateToCalendarDate(date: Date | null): CalendarDate | null {
@@ -40,6 +42,8 @@ const CustomDatePicker: React.FC<ICustomDatePickerProps> = ({
   onBlur,
   error,
   name,
+  disabled,
+  required,
 }) => {
   const calendarValue = dateToCalendarDate(value ?? null);
 
@@ -47,10 +51,11 @@ const CustomDatePicker: React.FC<ICustomDatePickerProps> = ({
     <div className="space-y-1">
       {label && (
         <label htmlFor={name} className="text-foreground text-sm font-medium">
-          {label}
+          {label} {required ? <span className="text-destructive">*</span> : ""}
         </label>
       )}
       <DatePicker
+        isDisabled={disabled}
         className="*:not-first:mt-2"
         value={calendarValue ?? undefined}
         onChange={(val) => {
