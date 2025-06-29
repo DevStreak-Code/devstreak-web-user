@@ -9,7 +9,7 @@ const CustomLogo: React.FC<ICustomLogoProps> = (props) => {
   const { width = "h-full", height = "w-full" } = props;
   return (
     <div className={`${width} ${height}`}>
-      <img src="/assets/images/logo.svg" alt="logo" className="w-full h-full" />
+      <span className="text-2xl font-semibold text-primary">DevStreak</span>
     </div>
   );
 };

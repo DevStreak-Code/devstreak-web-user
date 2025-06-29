@@ -6,7 +6,7 @@ import { CustomToast } from "./components/CustomToast";
 
 function App() {
   return (
-    <div className="p-2 w-screen h-screen">
+    <div className="w-screen h-screen">
       <QueryClientProvider client={queryClient}>
         <RouterManager />
         <CustomToast />
