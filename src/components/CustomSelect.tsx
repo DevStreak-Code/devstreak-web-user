@@ -17,6 +17,8 @@ interface ICustomSelectProps {
   onChange?: (value: string) => void;
   onBlur?: () => void;
   error?: string;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 const CustomSelect: React.FC<ICustomSelectProps> = ({
@@ -26,6 +28,8 @@ const CustomSelect: React.FC<ICustomSelectProps> = ({
   value,
   onChange,
   onBlur,
+  disabled,
+  required,
   error,
 }) => {
   const handleChange = (val: string) => {
@@ -36,10 +40,12 @@ const CustomSelect: React.FC<ICustomSelectProps> = ({
   return (
     <div className="*:not-first:mt-2">
       {label && (
-        <label className="text-sm font-medium text-gray-600">{label}</label>
+        <label className="text-sm   font-medium text-gray-600">
+          {label} {required && <span className="text-destructive">*</span>}
+        </label>
       )}
-      <Select value={value} onValueChange={handleChange}>
-        <SelectTrigger>
+      <Select disabled={disabled} value={value} onValueChange={handleChange}>
+        <SelectTrigger className={error ? "text-destructive" : ""}>
           <SelectValue placeholder={placeholder || "Select"} />
         </SelectTrigger>
         <SelectContent>
@@ -50,7 +56,18 @@ const CustomSelect: React.FC<ICustomSelectProps> = ({
           ))}
         </SelectContent>
       </Select>
-      {error && <p className="text-destructive text-xs mt-1">{error}</p>}
+
+      {error ? (
+        <p
+          className="text-destructive mt-2 text-xs"
+          role="alert"
+          aria-live="polite"
+        >
+          {error}
+        </p>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

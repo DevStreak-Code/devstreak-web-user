@@ -34,7 +34,7 @@ const CustomRadio: React.FC<ICustomRadioProps> = ({
         disabled={disabled}
         name={name}
       >
-        {options.map((option) => (
+        {options?.map((option) => (
           <div key={option.value} className="flex items-center gap-2">
             <RadioGroupItem value={option.value} id={`${name}-${option.value}`} />
             <label htmlFor={`${name}-${option.value}`}>{option.label}</label>

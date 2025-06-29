@@ -32,6 +32,7 @@ export const formFields: TFormConfig = [
     name: "role",
     label: "Role",
     component: "select",
+    required:true,
     options: [
       { label: "Developer", value: "dev" },
       { label: "Designer", value: "design" },

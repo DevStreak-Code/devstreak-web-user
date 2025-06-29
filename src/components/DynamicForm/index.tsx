@@ -69,6 +69,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                required={field.required}
                 error={errors[field.name]?.message as string}
               />
             )}
