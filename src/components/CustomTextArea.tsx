@@ -9,7 +9,7 @@ interface ICustomTextAreaProps {
 }
 
 const CustomTextArea: React.FC<ICustomTextAreaProps> = (props) => {
-  const { label, required, placeholder, disabled, error } = props;
+  const { label, required, placeholder, disabled, error, ...rest } = props;
 
   return (
     <div>
@@ -21,6 +21,7 @@ const CustomTextArea: React.FC<ICustomTextAreaProps> = (props) => {
         id="name"
         placeholder={placeholder}
         disabled={disabled}
+        {...rest}
       />
       {error ? (
         <p

@@ -6,39 +6,70 @@ import {
   Group,
   Popover,
 } from "react-aria-components";
-
 import { Calendar } from "@/components/ui/calendar-rac";
 import { DateInput } from "@/components/ui/datefield-rac";
-import type React from "react";
+import { CalendarDate } from "@internationalized/date";
 
 interface ICustomDatePickerProps {
   label: string;
+  value?: Date | null; // ✅ accept native Date
+  onChange?: (value: Date | null) => void;
+  onBlur?: () => void;
+  error?: string;
+  name?:string
 }
 
-const CustomDatePicker: React.FC<ICustomDatePickerProps> = (props) => {
-  const { label } = props;
+function dateToCalendarDate(date: Date | null): CalendarDate | null {
+  if (!date) return null;
+  return new CalendarDate(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate());
+}
+
+function calendarDateToUTCDate(cal: CalendarDate | null): Date | null {
+  if (!cal) return null;
+  return new Date(Date.UTC(cal.year, cal.month - 1, cal.day));
+}
+
+const CustomDatePicker: React.FC<ICustomDatePickerProps> = ({
+  label,
+  value,
+  onChange,
+  onBlur,
+  error,
+  name
+}) => {
+  const calendarValue = dateToCalendarDate(value ?? null);
+
   return (
-    <DatePicker className="*:not-first:mt-2">
+    <div className="space-y-1">
       {label && (
-        <label className="text-foreground text-sm font-medium">{label}</label>
+        <label htmlFor={name} className="text-foreground text-sm font-medium">{label}</label>
       )}
-      <div className="flex">
-        <Group className="w-full">
-          <DateInput className="pe-9" />
-        </Group>
-        <Button className="text-muted-foreground/80 hover:text-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 z-10 -ms-9 -me-px flex w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none data-focus-visible:ring-[3px]">
-          <CalendarIcon size={16} />
-        </Button>
-      </div>
-      <Popover
-        className="bg-background text-popover-foreground data-entering:animate-in data-exiting:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0 data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95 data-[placement=bottom]:slide-in-from-top-2 data-[placement=left]:slide-in-from-right-2 data-[placement=right]:slide-in-from-left-2 data-[placement=top]:slide-in-from-bottom-2 z-50 rounded-lg border shadow-lg outline-hidden"
-        offset={4}
+      <DatePicker
+        className="*:not-first:mt-2"
+        value={calendarValue ?? undefined}
+        onChange={(val) => {
+          onChange?.(calendarDateToUTCDate(val as CalendarDate));
+          onBlur?.(); // mark touched
+        }}
+        name={name}
+        id={name}
       >
-        <Dialog className="max-h-[inherit] overflow-auto p-2">
-          <Calendar />
-        </Dialog>
-      </Popover>
-    </DatePicker>
+        <div className="flex">
+          <Group className="w-full">
+            <DateInput className="pe-9" />
+          </Group>
+          <Button className="text-muted-foreground/80 hover:text-foreground z-10 -ms-9 -me-px flex w-9 items-center justify-center rounded-e-md">
+            <CalendarIcon size={16} />
+          </Button>
+        </div>
+        <Popover className="z-50 rounded-lg border shadow-lg" offset={4}>
+          <Dialog className="max-h-[inherit] overflow-auto p-2">
+            <Calendar />
+          </Dialog>
+        </Popover>
+      </DatePicker>
+      {error && <p className="text-destructive text-xs mt-1">{error}</p>}
+    </div>
   );
 };
 

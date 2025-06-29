@@ -5,7 +5,7 @@ import type { TFormConfig, FormField } from "./dynamic-form-interface";
 import CustomButton from "../CustomButton";
 import CustomRadio from "../CustomRadio";
 import CustomDatePicker from "../CustomDatePicker";
-import CustomInputTags from "../CustomInputTags";
+// import CustomInputTags from "../CustomInputTags";
 import CustomSwitchButton from "../CustomSwitchButton";
 import CustomMultiSelect from "../CustomMultiSelect";
 import CustomTextArea from "../CustomTextArea";
@@ -61,8 +61,16 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           <Controller
             control={control}
             name={field.name}
-            render={({ field: f }) => (
-              <CustomSelect {...common} options={field.options} {...f} />
+            render={({ field: { value, onChange, onBlur } }) => (
+              <CustomSelect
+                label={field.label}
+                placeholder={field.placeholder}
+                options={field.options}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                error={errors[field.name]?.message as string}
+              />
             )}
           />
         );
@@ -81,23 +89,42 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           <Controller
             control={control}
             name={field.name}
-            render={({ field: f }) => <CustomSwitchButton {...common} {...f} />}
+            render={({ field: { value, onChange, onBlur, name } }) => (
+              <CustomSwitchButton
+                name={name}
+                label={field.label}
+                disabled={field.disabled}
+                checked={value}
+                onCheckedChange={onChange}
+                onBlur={onBlur}
+                error={errors[field.name]?.message as string}
+              />
+            )}
           />
         );
-      case "tags":
-        return (
-          <Controller
-            control={control}
-            name={field.name}
-            render={({ field: f }) => <CustomInputTags {...common} {...f} />}
-          />
-        );
+      //   case "tags":
+      //     return (
+      //       <Controller
+      //         control={control}
+      //         name={field.name}
+      //         render={({ field: f }) => <CustomInputTags {...common} {...f} />}
+      //       />
+      //     );
       case "date":
         return (
           <Controller
             control={control}
             name={field.name}
-            render={({ field: f }) => <CustomDatePicker {...common} {...f} />}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <CustomDatePicker
+                label={field.label}
+                value={value}
+                onChange={onChange}
+                name={field.name}
+                onBlur={onBlur}
+                error={errors[field.name]?.message as string}
+              />
+            )}
           />
         );
       case "radio":
@@ -105,8 +132,16 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           <Controller
             control={control}
             name={field.name}
-            render={({ field: f }) => (
-              <CustomRadio {...common} options={field.options} {...f} />
+            render={({ field: { value, onChange, onBlur, name } }) => (
+              <CustomRadio
+                name={name}
+                label={field.label}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                options={field.options}
+                error={errors[field.name]?.message as string}
+              />
             )}
           />
         );
