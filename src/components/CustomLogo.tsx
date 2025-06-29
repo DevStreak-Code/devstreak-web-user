@@ -1,15 +1,14 @@
 import type React from "react";
 
 interface ICustomLogoProps {
-  width?: string;
-  height?: string;
+  alignment?: "start" | "center" | "end";
 }
 
 const CustomLogo: React.FC<ICustomLogoProps> = (props) => {
-  const { width = "h-full", height = "w-full" } = props;
+  const { alignment = "center" } = props;
   return (
-    <div className={`${width} ${height}`}>
-      <span className="text-2xl font-semibold text-primary">DevStreak</span>
+    <div className={`flex  items-center justify-${alignment}`}>
+      <span className="text-2xl font-semibold text-primary m-1">DevStreak</span>
     </div>
   );
 };
