@@ -12,6 +12,7 @@ import SampleTodoApi from "../sample/SampleTodoAPI";
 import DesignUI from "../sample/DesignUI";
 import AddEmployee from "../recruiter/add-employee";
 import SampleDynamicForm from "../sample/SampleDynamicForm";
+import PostJob from "../recruiter/post-job";
 
 export const ROUTE_CONFIG = [
   {
@@ -33,6 +34,12 @@ export const ROUTE_CONFIG = [
     path: ROUTES.REGISTER,
     component: <Register />,
     name: "Register",
+  },
+
+  {
+    path: ROUTES.RECRUITER_POST_JOB,
+    component: <PostJob />,
+    name: "Post JOB - Recruiter",
   },
   {
     path: ROUTES.CHANGE_PASSWORD,
