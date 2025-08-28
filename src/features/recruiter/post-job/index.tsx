@@ -2,7 +2,7 @@ import TechnicalFit from "./TechnicalFit";
 
 const PostJob = () => {
   return (
-    <div>
+    <div className="w-full h-full flex justify-center">
       <TechnicalFit />
     </div>
   );

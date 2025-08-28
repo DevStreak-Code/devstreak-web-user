@@ -15,11 +15,14 @@ interface ICustomInputProps {
   ref?: React.Ref<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  className?: string;
+  value?: string | number;
 }
 
 const CustomInput: React.FC<ICustomInputProps> = (props) => {
   const [show, setShow] = useState(false);
   const {
+    value,
     label,
     placeholder,
     type = "text",
@@ -31,12 +34,13 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
     ref,
     onChange,
     onBlur,
+    className,
   } = props;
 
   const isPassword = type === "password";
   const inputType = isPassword ? (show ? "text" : "password") : type;
   return (
-    <div className="">
+    <div className={className}>
       <label htmlFor={name} className="text-sm   font-medium text-gray-600">
         {label} {required ? <span className="text-destructive">*</span> : ""}
       </label>{" "}
@@ -46,6 +50,7 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
           ref={ref}
           id={name}
           name={name}
+          value={value}
           placeholder={placeholder}
           defaultValue={defaultValue}
           type={inputType}
