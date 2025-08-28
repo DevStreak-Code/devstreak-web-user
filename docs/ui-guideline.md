@@ -37,3 +37,7 @@
 
 - Input Component 
    reference UiDesign only maintain reusability
+
+- color & font size
+  - heading - h3 , color - use default
+  - description - p , color - text-gray-500

@@ -1,18 +1,90 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-
 import { useTechnicalFit } from "./useTechnialFit";
 import { DevTool } from "@hookform/devtools";
+import { SquarePen, Trash2 } from "lucide-react";
+import CustomTable from "@/components/CustomTable";
 
 const TechnicalFit: React.FC = () => {
   const { state, handlers } = useTechnicalFit();
   const { isValid, errors, skillsList } = state;
   const { register, handleSubmit, control } = handlers;
 
+  const handleEdit = (index: number) => {
+    console.log("Edit skill at index:", index);
+    // hook into edit logic
+  };
+
+  const handleDelete = (index: number) => {
+    console.log("Delete skill at index:", index);
+    // hook into delete logic
+  };
+
+  // Define DataTable columns
+  const columns = [
+    {
+      header: "#",
+      accessor: "id",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      cell: (row: any) => row.id, // ✅ show serial no.
+    },
+    {
+      header: "Skill",
+      accessor: "skill",
+    },
+    {
+      header: "Min. Exp (Years)",
+      accessor: "minExp",
+    },
+    {
+      header: "Max. Exp (Years)",
+      accessor: "maxExp",
+    },
+    {
+      header: "Importance (%)",
+      accessor: "weightage",
+      cell: (row: any, index: number) => {
+        return (
+          <div key={index}>
+            <span>{row?.weightage || 0}%</span>
+          </div>
+        );
+      },
+    },
+    {
+      header: "Action",
+      accessor: "actions",
+      cell: (_row: any, index: number) => (
+        <div className="flex justify-start gap-3">
+          <button
+            type="button"
+            onClick={() => handleEdit(index)}
+            className="text-primary cursor-pointer"
+          >
+            <SquarePen size={18} />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleDelete(index)}
+            className="text-red-600 cursor-pointer"
+          >
+            <Trash2 size={18} />
+          </button>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <div className=" flex flex-col w-[80%] mt-20 ">
+    <div className="flex flex-col w-[80%] mt-20">
       <form onSubmit={handleSubmit} noValidate>
-        <h1 className=" text-3xl font-[500] text-black ">Technical Fit</h1>
+        <h4 className="text-3xl font-[500] text-black">Technical Skills Fit</h4>
+        <p className="text-sm text-gray-500 mt-2">
+          Define the technical skills required for this role. Specify minimum
+          and maximum experience, and assign weight (%) to indicate importance
+          of each skill.
+        </p>
         <div className="pt-4">
           <CustomInput
             label="Skill"
@@ -20,36 +92,34 @@ const TechnicalFit: React.FC = () => {
             className="w-1/3"
             placeholder="e.g. React"
             error={errors.skill?.message}
+            required
             {...register("skill")}
           />
         </div>
         <div className="flex gap-4 w-1/2 pt-4">
           <CustomInput
-            label="Mininum Experience"
+            label="Min. Experience (Years)"
             className="w-1/3"
             placeholder="e.g. 3"
             error={errors.minExp?.message}
-            {...register("minExp", {
-              valueAsNumber: true,
-            })}
+            {...register("minExp", { valueAsNumber: true })}
+            required
           />
           <CustomInput
-            label="Maximum Experience"
+            label="Max. Experience (Years)"
             className="w-1/3"
             placeholder="e.g. 5"
             error={errors.maxExp?.message}
-            {...register("maxExp", {
-              valueAsNumber: true,
-            })}
+            {...register("maxExp", { valueAsNumber: true })}
+            required
           />
           <CustomInput
-            label="Weightage"
+            label="Importance (%)"
             className="w-1/3"
             placeholder=""
             error={errors.weightage?.message}
-            {...register("weightage", {
-              valueAsNumber: true,
-            })}
+            {...register("weightage", { valueAsNumber: true })}
+            required
           />
         </div>
         <div className="pt-4">
@@ -57,36 +127,18 @@ const TechnicalFit: React.FC = () => {
         </div>
         <DevTool control={control} />
       </form>
-      <table className="w-full mt-2">
-        <thead>
-          <tr className=" mt-6 border ">
-            <th className="pr-12 text-left px-4 py-2">Skill</th>
 
-            <th className=" px-4 py-2">Minimum Experience</th>
-            <th className=" px-4 py-2">Maximum Experience</th>
-            <th className=" px-4 py-2">Weightage</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {skillsList.map((item, index) => {
-            return (
-              <tr className=" mt-6 border " key={index}>
-                <td className="pr-12 text-left px-4 py-2">{item.skill}</td>
-                <td className=" px-4 py-2">{item.minExp}</td>
-                <td className=" px-4 py-2">{item.maxExp}</td>
-                <td className=" px-4 py-2">{item.weightage}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      <div className="gap-2 mt-2 flex justify-end ">
-        <CustomButton className="bg-gray-400" label="Back" />
-
-        <CustomButton label="Save" />
+      {/* ✅ Reusable DataTable */}
+      <div className="mt-6">
+        <CustomTable columns={columns} data={skillsList} />
       </div>
+
+      {skillsList.length > 0 && (
+        <div className="gap-2 mt-4 flex justify-end">
+          <CustomButton className="bg-gray-400" label="Back" />
+          <CustomButton label="Save" />
+        </div>
+      )}
     </div>
   );
 };

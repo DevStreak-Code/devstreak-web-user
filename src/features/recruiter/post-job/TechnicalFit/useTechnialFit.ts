@@ -61,16 +61,16 @@ export const useTechnicalFit = () => {
     //   };
     //   handlers.loginAsync(payload);
     console.log("onsubmit", data);
-    setSkillsList((prev)=>{
-        return[...prev,data]
-    })
+    setSkillsList((prev) => {
+      return [...prev, { ...data, id: prev.length + 1 }];
+    });
   };
   return {
     state: {
       errors,
       isValid,
       isSubmitting,
-      skillsList
+      skillsList,
     },
     handlers: {
       register,
