@@ -15,7 +15,7 @@ export const technicalFitFormSchema = z.object({
   skill: z
     .string()
     .min(4, "Skill must be at least 4 characters long.")
-    .max(20, "Skill must be no longer than 20 characters.")
+    .max(50, "Skill must be no longer than 20 characters.")
     .nonempty("Skill is required."),
   minExp: z
     .number()
@@ -53,6 +53,8 @@ export const getTechnicalFitColumns = (props: {
     {
       header: "Skill",
       accessor: "skill",
+      className: "min-w-[150px]",
+      cell: (row) => row.skill,
     },
     {
       header: "Min. Exp (Years)",

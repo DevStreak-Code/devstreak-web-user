@@ -9,8 +9,14 @@ import { getTechnicalFitColumns } from "./schema";
 const TechnicalFit: React.FC = () => {
   const { state, handlers } = useTechnicalFit();
   const { isValid, errors, skillsList, editingUser } = state;
-  const { register, handleSubmit, control, handleEdit, handleDelete } =
-    handlers;
+  const {
+    register,
+    handleSubmit,
+    control,
+    handleEdit,
+    handleDelete,
+    technicalFitSubmitHandler,
+  } = handlers;
   const columns = getTechnicalFitColumns({ handleEdit, handleDelete });
 
   // Define DataTable columns
@@ -72,14 +78,19 @@ const TechnicalFit: React.FC = () => {
       </form>
 
       {/* ✅ Reusable DataTable */}
-      <div className="mt-6">
+      <div
+        className="mt-6"
+        onClick={(e) => {
+          console.log(e.currentTarget.dataset);
+        }}
+      >
         <CustomTable columns={columns} data={skillsList as any} />
       </div>
 
       {skillsList.length > 0 && (
         <div className="gap-2 mt-4 flex justify-end">
           <CustomButton className="bg-gray-400" label="Back" />
-          <CustomButton label="Save" />
+          <CustomButton label="Save" onClick={technicalFitSubmitHandler} />
         </div>
       )}
     </div>

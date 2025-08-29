@@ -38,6 +38,10 @@ export const useTechnicalFit = () => {
     }
   }, [editingUser, reset]);
 
+  const technicalFitSubmitHandler =()=>{
+    console.log(skillsList)
+  }
+
   const onSubmit = (data: TTechincalFitFormData) => {
     if (editingUser) {
       setSkillsList((prev) =>
@@ -76,6 +80,7 @@ export const useTechnicalFit = () => {
       control,
       handleEdit,
       handleDelete,
+      technicalFitSubmitHandler
     },
   };
 };
