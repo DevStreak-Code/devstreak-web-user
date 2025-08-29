@@ -1,40 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-export interface ITechnicalFormData {
-  skill: string;
-  minExp: number;
-  maxExp: number;
-  weightage: number;
-}
-export const technicalFitFormSchema = z.object({
-  skill: z
-    .string()
-    .min(4, "Skill must be at least 4 characters long.")
-    .max(20, "Skill must be no longer than 20 characters.")
-    .nonempty("Skill is required."),
-  minExp: z
-    .number()
-    .min(0, "Experience must be at least 0 years.")
-    .max(99, "Experience must be no more than 99 years.")
-    .int("Experience must be an integer.")
-    .refine((value) => value >= 0 && value <= 99, "Experience is required."),
-  maxExp: z
-    .number()
-    .min(0, "Experience must be at least 0 years.")
-    .max(99, "Experience must be no more than 99 years.")
-    .int("Experience must be an integer.")
-    .refine((value) => value >= 0 && value <= 99, "Experience is required."),
-  weightage: z
-    .number()
-    .min(0, "Weightage must be at least 0%.")
-    .max(100, "Weightage must be no more than 100%.")
-    .refine((value) => value >= 0 && value <= 100, "Weightage is required."),
-});
-
-export type TTechincalFitFormData = z.infer<typeof technicalFitFormSchema>;
+import {
+  technicalFitFormSchema,
+  type ITechnicalFormData,
+  type TTechincalFitFormData,
+} from "./schema";
 
 export const useTechnicalFit = () => {
   const {
@@ -42,6 +13,7 @@ export const useTechnicalFit = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
     control,
+    reset,
   } = useForm<TTechincalFitFormData>({
     defaultValues: {
       skill: "",
@@ -53,29 +25,57 @@ export const useTechnicalFit = () => {
     mode: "onChange",
   });
   const [skillsList, setSkillsList] = useState<ITechnicalFormData[]>([]);
+  const [editingUser, setEditingUser] = useState<ITechnicalFormData | null>(
+    null
+  );
+
+  // Reset form whenever editingSkill changes
+  useEffect(() => {
+    if (editingUser) {
+      reset(editingUser);
+    } else {
+      reset({});
+    }
+  }, [editingUser, reset]);
+
   const onSubmit = (data: TTechincalFitFormData) => {
-    //   const payload = {
-    //     email: data.email,
-    //     password: data.password,
-    //     role: "RECRUITER",
-    //   };
-    //   handlers.loginAsync(payload);
-    console.log("onsubmit", data);
-    setSkillsList((prev) => {
-      return [...prev, { ...data, id: prev.length + 1 }];
-    });
+    if (editingUser) {
+      setSkillsList((prev) =>
+        prev.map((u) => (u.id === editingUser.id ? { ...u, ...data } : u))
+      );
+      setEditingUser(null);
+    } else {
+      // Add new user
+      setSkillsList((prev) => [...prev, { ...data, id: prev.length + 1 }]);
+    }
+    reset({});
   };
+
+  const handleEdit = (updatedRow: ITechnicalFormData) => {
+    setEditingUser(updatedRow);
+  };
+
+  const handleDelete = (row: ITechnicalFormData) => {
+    const updatedList = skillsList.filter((item) => {
+      return item.id !== row.id;
+    });
+    setSkillsList(updatedList);
+  };
+
   return {
     state: {
       errors,
       isValid,
       isSubmitting,
       skillsList,
+      editingUser,
     },
     handlers: {
       register,
       handleSubmit: handleSubmit(onSubmit),
       control,
+      handleEdit,
+      handleDelete,
     },
   };
 };

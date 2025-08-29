@@ -3,78 +3,17 @@ import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { useTechnicalFit } from "./useTechnialFit";
 import { DevTool } from "@hookform/devtools";
-import { SquarePen, Trash2 } from "lucide-react";
 import CustomTable from "@/components/CustomTable";
+import { getTechnicalFitColumns } from "./schema";
 
 const TechnicalFit: React.FC = () => {
   const { state, handlers } = useTechnicalFit();
-  const { isValid, errors, skillsList } = state;
-  const { register, handleSubmit, control } = handlers;
-
-  const handleEdit = (index: number) => {
-    console.log("Edit skill at index:", index);
-    // hook into edit logic
-  };
-
-  const handleDelete = (index: number) => {
-    console.log("Delete skill at index:", index);
-    // hook into delete logic
-  };
+  const { isValid, errors, skillsList, editingUser } = state;
+  const { register, handleSubmit, control, handleEdit, handleDelete } =
+    handlers;
+  const columns = getTechnicalFitColumns({ handleEdit, handleDelete });
 
   // Define DataTable columns
-  const columns = [
-    {
-      header: "#",
-      accessor: "id",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      cell: (row: any) => row.id, // ✅ show serial no.
-    },
-    {
-      header: "Skill",
-      accessor: "skill",
-    },
-    {
-      header: "Min. Exp (Years)",
-      accessor: "minExp",
-    },
-    {
-      header: "Max. Exp (Years)",
-      accessor: "maxExp",
-    },
-    {
-      header: "Importance (%)",
-      accessor: "weightage",
-      cell: (row: any, index: number) => {
-        return (
-          <div key={index}>
-            <span>{row?.weightage || 0}%</span>
-          </div>
-        );
-      },
-    },
-    {
-      header: "Action",
-      accessor: "actions",
-      cell: (_row: any, index: number) => (
-        <div className="flex justify-start gap-3">
-          <button
-            type="button"
-            onClick={() => handleEdit(index)}
-            className="text-primary cursor-pointer"
-          >
-            <SquarePen size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={() => handleDelete(index)}
-            className="text-red-600 cursor-pointer"
-          >
-            <Trash2 size={18} />
-          </button>
-        </div>
-      ),
-    },
-  ];
 
   return (
     <div className="flex flex-col w-[80%] mt-20">
@@ -96,7 +35,7 @@ const TechnicalFit: React.FC = () => {
             {...register("skill")}
           />
         </div>
-        <div className="flex gap-4 w-1/2 pt-4">
+        <div className="flex gap-4  pt-4">
           <CustomInput
             label="Min. Experience (Years)"
             className="w-1/3"
@@ -123,14 +62,18 @@ const TechnicalFit: React.FC = () => {
           />
         </div>
         <div className="pt-4">
-          <CustomButton type="submit" label="Add Skill" disabled={!isValid} />
+          <CustomButton
+            type="submit"
+            label={editingUser ? "Update" : "Add Skill"}
+            disabled={!isValid}
+          />
         </div>
         <DevTool control={control} />
       </form>
 
       {/* ✅ Reusable DataTable */}
       <div className="mt-6">
-        <CustomTable columns={columns} data={skillsList} />
+        <CustomTable columns={columns} data={skillsList as any} />
       </div>
 
       {skillsList.length > 0 && (

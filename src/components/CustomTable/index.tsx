@@ -9,7 +9,7 @@ import {
 
 import React from "react";
 
-type Column<T> = {
+export type Column<T> = {
   header: string;
   accessor: keyof T;
   cell?: (row: T, index: number) => React.ReactNode; // explicitly allows JSX
@@ -25,46 +25,60 @@ export default function CustomTable<T extends { id?: string | number }>({
   columns,
   data,
 }: DataTableProps<T>) {
-  if (data.length === 0) {
-    return (
-      <div className="w-full border rounded-md p-4 flex justify-center items-center flex-col">
-        <div className="w-full h-[300px] ">
-          <img src="/assets/images/no-data.svg" className="w-full h-full" />
-        </div>
-        <p className="text-gray-600 text-sm">No skills added yet. Use the form above to add skills.</p>
-      </div>
-    );
-  }
   return (
     <div className="bg-background overflow-hidden rounded-md border">
       <Table>
         <TableHeader>
           <TableRow className="bg-primary hover:bg-primary">
-            {columns.map((col) => (
-              <TableHead
-                key={String(col.accessor)}
-                className={`h-9 text-white py-2 ${col.className || ""}`}
-              >
-                {col.header}
-              </TableHead>
-            ))}
+            {columns.map((col, index) => {
+              return (
+                <TableHead
+                  key={index}
+                  className={`h-9 text-white py-2 ${col.className || ""}`}
+                >
+                  {col.header}
+                </TableHead>
+              );
+            })}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id ?? JSON.stringify(row)}>
-              {columns.map((col, i) => (
-                <TableCell
-                  key={String(col.accessor)}
-                  className={`py-2 ${col.className || ""}`}
-                >
-                  {col.cell
-                    ? col.cell(row, i)
-                    : (row[col.accessor] as React.ReactNode)}
-                </TableCell>
-              ))}
+          {data.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-64 text-center align-middle"
+              >
+                <div className="flex flex-col items-center justify-center py-6">
+                  <div className="w-40 h-40 mb-4">
+                    <img
+                      src="/assets/images/no-data.svg"
+                      alt="No data"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <p className="text-gray-600 text-sm text-center">
+                    No skills added yet. Use the form above to add skills.
+                  </p>
+                </div>
+              </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            data.map((row, rowIdx) => (
+              <TableRow key={row.id ?? JSON.stringify(row)}>
+                {columns.map((col, i) => (
+                  <TableCell
+                    key={rowIdx + "-" + i}
+                    className={`py-2 ${col.className || ""}`}
+                  >
+                    {col.cell
+                      ? col.cell(row, rowIdx)
+                      : (row[col.accessor] as React.ReactNode)}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </div>
