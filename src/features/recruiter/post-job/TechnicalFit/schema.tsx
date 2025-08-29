@@ -11,30 +11,54 @@ export interface ITechnicalFormData {
   weightage: number;
   id?: number | string;
 }
-export const technicalFitFormSchema = z.object({
-  skill: z
-    .string()
-    .min(4, "Skill must be at least 4 characters long.")
-    .max(50, "Skill must be no longer than 20 characters.")
-    .nonempty("Skill is required."),
-  minExp: z
-    .number()
-    .min(0, "Experience must be at least 0 years.")
-    .max(99, "Experience must be no more than 99 years.")
-    .int("Experience must be an integer.")
-    .refine((value) => value >= 0 && value <= 99, "Experience is required."),
-  maxExp: z
-    .number()
-    .min(0, "Experience must be at least 0 years.")
-    .max(99, "Experience must be no more than 99 years.")
-    .int("Experience must be an integer.")
-    .refine((value) => value >= 0 && value <= 99, "Experience is required."),
-  weightage: z
-    .number()
-    .min(0, "Weightage must be at least 0%.")
-    .max(100, "Weightage must be no more than 100%.")
-    .refine((value) => value >= 0 && value <= 100, "Weightage is required."),
-});
+
+export const technicalFitFormSchema = z
+  .object({
+    skill: z
+      .string()
+      .trim()
+      .min(2, "Skill must be at least 2 characters long.")
+      .max(50, "Skill must be no longer than 50 characters.")
+      .regex(
+        /^(?=.*[A-Za-z])[A-Za-z0-9+.#()_\- ]+$/,
+        "Skill must contain at least one letter and only valid characters."
+      )
+      .nonempty("Skill is required."),
+
+    minExp: z
+      .number({
+        required_error: "Minimum experience is required.",
+        invalid_type_error: "Experience must be a number.",
+      })
+      .min(0, "Experience must be at least 0 years.")
+      .max(99, "Experience must be no more than 99 years.")
+      .int("Experience must be an integer."),
+
+    maxExp: z
+      .number({
+        required_error: "Maximum experience is required.",
+        invalid_type_error: "Experience must be a number.",
+      })
+      .min(0, "Experience must be at least 0 years.")
+      .max(99, "Experience must be no more than 99 years.")
+      .int("Experience must be an integer."),
+
+    weightage: z
+      .number({
+        required_error: "Weightage is required.",
+        invalid_type_error: "Weightage must be a number.",
+      })
+      .min(1, "Weightage must be at least 1%.")
+      .max(100, "Weightage must be no more than 100%."),
+  })
+  .refine((data) => data.minExp <= data.maxExp, {
+    message: "Minimum experience cannot be greater than maximum experience.",
+    path: ["minExp"],
+  })
+  .refine((data) => data.maxExp >= data.minExp, {
+    message: "Maximum experience cannot be less than minimum experience.",
+    path: ["maxExp"],
+  });
 
 export type TTechincalFitFormData = z.infer<typeof technicalFitFormSchema>;
 
