@@ -1,8 +1,10 @@
+import { usePostJobStore } from "../store";
 import type { TSalaryExpectationValidationSchema } from "./schema";
 
 export const useSalaryExpectation = () => {
-  const submitHandler = (data:TSalaryExpectationValidationSchema) => {
-    console.log("data::::", data);
+  const { nextStep } = usePostJobStore();
+  const submitHandler = (data: TSalaryExpectationValidationSchema) => {
+    nextStep("salaryExpectationFit", data);
   };
 
   return {
