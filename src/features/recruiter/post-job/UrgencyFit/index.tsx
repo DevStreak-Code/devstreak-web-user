@@ -1,8 +1,11 @@
-import DynamicForm from "@/components/DynamicForm";
+import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
 import { urgencyFitFormSchema, urgencyFitValidationSchema } from "./schema";
 import { useUrgencyFit } from "./useUrgencyFit";
+import { NavigationButton } from "..";
+import { useRef } from "react";
 
 const UrgencyFit = () => {
+  const formRef = useRef<DynamicFormRef>(null);
   const { handlers } = useUrgencyFit();
   const { onSubmit } = handlers;
   return (
@@ -12,9 +15,15 @@ const UrgencyFit = () => {
       </h4>
       <div className="h-[250px] mt-5 ">
         <DynamicForm
+          ref={formRef}
           config={urgencyFitFormSchema}
           schema={urgencyFitValidationSchema}
+          isShowDefaultSubmitButton={false}
           onSubmit={onSubmit}
+        />
+        <NavigationButton
+          nextHandler={() => formRef.current?.submitForm()}
+          prevHandler={() => {}}
         />
       </div>
     </div>

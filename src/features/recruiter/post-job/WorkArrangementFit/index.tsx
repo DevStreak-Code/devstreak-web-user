@@ -1,11 +1,14 @@
-import DynamicForm from "@/components/DynamicForm";
+import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
 import {
   workArrangementFitFields,
   workArrangementFitValidationSchema,
 } from "./schema";
 import { useWorkArrangementFit } from "./useWorkArrangementFit";
+import { NavigationButton } from "..";
+import { useRef } from "react";
 
 const WorkArrangementFit = () => {
+  const formRef = useRef<DynamicFormRef>(null);
   const { handlers } = useWorkArrangementFit();
   const { onSubmit } = handlers;
 
@@ -18,9 +21,15 @@ const WorkArrangementFit = () => {
         Define the work arrangement for this role.
       </p>
       <DynamicForm
+        ref={formRef}
         config={workArrangementFitFields}
         schema={workArrangementFitValidationSchema}
         onSubmit={onSubmit}
+        isShowDefaultSubmitButton={false}
+      />
+      <NavigationButton
+        nextHandler={() => formRef.current?.submitForm()}
+        prevHandler={() => {}}
       />
     </div>
   );

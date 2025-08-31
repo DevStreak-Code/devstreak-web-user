@@ -1,5 +1,6 @@
 import { searchLocation } from "@/lib/utils";
 import type { TWorkArrangementFitValidationSchema } from "./schema";
+import { usePostJobStore } from "../store";
 
 export async function searchLocationOptions(query: string) {
   const results = await searchLocation(query);
@@ -14,8 +15,9 @@ export async function searchLocationOptions(query: string) {
 }
 
 export const useWorkArrangementFit = () => {
+  const { nextStep } = usePostJobStore();
   const onSubmit = (data: TWorkArrangementFitValidationSchema) => {
-    console.log("data:::", data);
+    nextStep("workArrangementFit", data);
   };
   return {
     handlers: {

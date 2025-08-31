@@ -1,8 +1,10 @@
+import { usePostJobStore } from "../store";
 import type { UrgencyFitFormData } from "./schema";
 
 export const useUrgencyFit = () => {
+  const { nextStep } = usePostJobStore();
   const onSubmit = (data: UrgencyFitFormData) => {
-    console.log(data);
+    nextStep("urgencyFit", data);
   };
   return {
     handlers: {
