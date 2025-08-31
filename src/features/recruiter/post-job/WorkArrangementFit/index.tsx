@@ -8,9 +8,9 @@ import { useWorkArrangementFit } from "./useWorkArrangementFit";
 const WorkArrangementFit = () => {
   const { handlers } = useWorkArrangementFit();
   const { onSubmit } = handlers;
-  
+
   return (
-    <div className="flex flex-col w-[80%] mt-20">
+    <div className="">
       <h4 className="text-3xl font-[500] text-black">
         Work Arrangement for this role?
       </h4>

@@ -1,39 +1,18 @@
-import { useForm } from "react-hook-form";
-import {
-  jobRoleValidationSchema,
-  type IJobRoleForm,
-  type TJobFormValidationSchema,
-} from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { type IJobRoleForm } from "./schema";
+
+import { usePostJobStore } from "../store";
 
 export const useJobRole = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting },
-  } = useForm<TJobFormValidationSchema>({
-    defaultValues: {
-      jobRole: "",
-      totalExp: 0,
-      relevantExp: 0,
-    },
-    resolver: zodResolver(jobRoleValidationSchema),
-    mode: "onChange",
-  });
+  const { nextStep } = usePostJobStore();
 
-  const onSubmit = (data: IJobRoleForm): void => {
+  const submitHandler = (data: IJobRoleForm): void => {
     console.log(data);
+    nextStep("jobRole", data);
   };
 
   return {
-    state: {
-      errors,
-      isValid,
-      isSubmitting,
-    },
     handlers: {
-      register,
-      handleSubmit: handleSubmit(onSubmit),
+      submitHandler,
     },
   };
 };

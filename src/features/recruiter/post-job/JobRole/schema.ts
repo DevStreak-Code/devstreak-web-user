@@ -1,3 +1,4 @@
+import type { TFormConfig } from "@/components/DynamicForm/dynamic-form-interface";
 import { z } from "zod";
 
 export interface IJobRoleForm {
@@ -44,3 +45,31 @@ export const jobRoleValidationSchema = z
   });
 
 export type TJobFormValidationSchema = z.infer<typeof jobRoleValidationSchema>;
+
+
+export const jobRoleFields: TFormConfig = [
+  {
+    name: "jobRole",
+    label: "Job Role",
+    component: "input",
+    type: "text",
+    placeholder: "e.g. Technical Lead",
+    required: true,
+  },
+  {
+    name: "totalExp",
+    label: "Total Experience (Years)",
+    component: "input",
+    type: "number",
+    placeholder: "e.g. 8",
+    required: true,
+  },
+  {
+    name: "relevantExp",
+    label: "Relevant Experience (Years)",
+    component: "input",
+    type: "number",
+    placeholder: "e.g. 4",
+    required: true,
+  },
+];

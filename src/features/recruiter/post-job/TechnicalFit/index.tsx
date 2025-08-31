@@ -22,7 +22,7 @@ const TechnicalFit: React.FC = () => {
   // Define DataTable columns
 
   return (
-    <div className="flex flex-col w-[80%] mt-20">
+    <div className="">
       <form onSubmit={handleSubmit} noValidate>
         <h4 className="text-3xl font-[500] text-black">Technical Skills Fit</h4>
         <p className="text-sm text-gray-500 mt-2">
