@@ -138,6 +138,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
               <CustomRadio
                 name={name}
                 label={field.label}
+                required={field.required}
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
