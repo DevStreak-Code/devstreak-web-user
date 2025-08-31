@@ -7,6 +7,7 @@ import AvatarVariants from "./AvatarVariants";
 import CustomMultiSelectVariants from "./CustomMultiSelectVariant";
 import CustomDatePickerVariants from "./CustomDatePickerVariants";
 import CustomSelectVariants from "./CustomSelectVariants";
+import CheckboxVariants from "./ChecboxVariants";
 // import InputTagVariants from "./InputTagVariants";
 
 const DesignUI = () => {
@@ -22,6 +23,7 @@ const DesignUI = () => {
       <CustomMultiSelectVariants />
       <CustomDatePickerVariants />
       <CustomSelectVariants />
+      <CheckboxVariants />
     </div>
   );
 };

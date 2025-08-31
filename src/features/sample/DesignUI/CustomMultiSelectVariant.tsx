@@ -24,7 +24,7 @@ const CustomMultiSelectVariants = () => {
   return (
     <div>
       <UILayout
-        title="Input Variants"
+        title="MultiSelect Variants"
         variants={[
           {
             title: "Default",
