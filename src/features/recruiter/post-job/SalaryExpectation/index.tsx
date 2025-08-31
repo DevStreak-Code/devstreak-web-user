@@ -4,7 +4,6 @@ import {
   salaryExpectationValidationSchema,
 } from "./schema";
 import DynamicForm from "@/components/DynamicForm";
-import CustomCheckboxGroup from "@/components/CustomCheckbox";
 
 const SalaryExpectationFit = () => {
   const { handlers } = useSalaryExpectation();
@@ -20,20 +19,6 @@ const SalaryExpectationFit = () => {
         config={salaryExpectationFields}
         schema={salaryExpectationValidationSchema}
         onSubmit={submitHandler}
-      />
-      <CustomCheckboxGroup
-        name="skills"
-        label="Select Skills"
-        value={[""]}
-        onChange={() => {
-          //
-        }}
-        options={[
-          { label: "React", value: "react" },
-          { label: "Node.js", value: "node" },
-          { label: "TypeScript", value: "typescript" },
-        ]}
-        // error={errors.skills?.message}
       />
     </div>
   );
