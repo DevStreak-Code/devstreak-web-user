@@ -12,6 +12,7 @@ import CustomTextArea from "../CustomTextArea";
 import CustomSelect from "../CustomSelect";
 import CustomInput from "../CustomInput";
 import { DevTool } from "@hookform/devtools";
+import CustomCheckboxGroup from "../CustomCheckbox";
 
 // Components
 
@@ -135,6 +136,25 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
             name={field.name}
             render={({ field: { value, onChange, onBlur, name } }) => (
               <CustomRadio
+                name={name}
+                label={field.label}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                options={field.options}
+                error={errors[field.name]?.message as string}
+              />
+            )}
+          />
+        );
+
+      case "checkbox":
+        return (
+          <Controller
+            control={control}
+            name={field.name}
+            render={({ field: { value, onChange, onBlur, name } }) => (
+              <CustomCheckboxGroup
                 name={name}
                 label={field.label}
                 value={value}
