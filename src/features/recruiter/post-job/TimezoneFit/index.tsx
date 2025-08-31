@@ -1,8 +1,11 @@
 import { useTimezoneFit } from "./useTimezoneFit";
 import { timezoneFormSchema, timezoneValidationSchema } from "./schema";
-import DynamicForm from "@/components/DynamicForm";
+import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
+import { useRef } from "react";
+import { NavigationButton } from "..";
 
 const TimezoneFit = () => {
+  const formRef = useRef<DynamicFormRef>(null);
   const { handlers } = useTimezoneFit();
   const { onSubmit } = handlers;
 
@@ -11,9 +14,15 @@ const TimezoneFit = () => {
       <h4 className="text-3xl font-[500] text-black">Preferred Timezones</h4>
       <div className="h-[250px] mt-5 ">
         <DynamicForm
+          ref={formRef}
           config={timezoneFormSchema}
           schema={timezoneValidationSchema}
           onSubmit={onSubmit}
+          isShowDefaultSubmitButton={false}
+        />
+        <NavigationButton
+          nextHandler={() => formRef.current?.submitForm()}
+          prevHandler={() => {}}
         />
       </div>
     </div>
