@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { type ZodTypeAny } from "zod";
@@ -28,10 +29,20 @@ interface DynamicFormProps {
   isShowDefaultSubmitButton?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => void;
+  initialValues?: any;
 }
 
 const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
-  ({ config, schema, onSubmit, isShowDefaultSubmitButton = true }, ref) => {
+  (
+    {
+      config,
+      schema,
+      onSubmit,
+      isShowDefaultSubmitButton = true,
+      initialValues,
+    },
+    ref
+  ) => {
     const {
       control,
       register,
@@ -41,6 +52,12 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
     } = useForm({
       resolver: zodResolver(schema),
     });
+
+    useEffect(() => {
+      if (initialValues) {
+        reset(initialValues ?? {});
+      }
+    }, [initialValues, reset]);
 
     // 🔹 Expose methods to parent
     useImperativeHandle(ref, () => ({

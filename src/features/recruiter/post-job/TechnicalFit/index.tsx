@@ -7,9 +7,11 @@ import {
   technicalFitFields,
   technicalFitFormSchema,
 } from "./schema";
-import DynamicForm from "@/components/DynamicForm";
+import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
+import { useRef } from "react";
 
 const TechnicalFit: React.FC = () => {
+  const formRef = useRef<DynamicFormRef>(null);
   const { state, handlers } = useTechnicalFit();
   const { skillsList } = state;
   const { handleSubmit, handleEdit, handleDelete, technicalFitSubmitHandler } =
@@ -28,9 +30,25 @@ const TechnicalFit: React.FC = () => {
       </p>
       <div className="mt-2">
         <DynamicForm
+          ref={formRef}
           schema={technicalFitFormSchema}
           config={technicalFitFields}
           onSubmit={handleSubmit}
+          initialValues={
+            state.editingUser ?? {
+              skill: "",
+              minExp: "",
+              maxExp: "",
+              weightage: "",
+            }
+          }
+          isShowDefaultSubmitButton={false}
+        />
+        <CustomButton
+          label={state.editingUser ? "Update" : "Save"}
+          onClick={() => {
+            formRef.current?.submitForm();
+          }}
         />
       </div>
 
