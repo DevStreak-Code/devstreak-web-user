@@ -1,46 +1,30 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  technicalFitFormSchema,
-  type ITechnicalFormData,
-  type TTechincalFitFormData,
-} from "./schema";
+import { useState } from "react";
+
+import { type ITechnicalFormData, type TTechincalFitFormData } from "./schema";
+import { usePostJobStore } from "../store";
 
 export const useTechnicalFit = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting },
-    control,
-    reset,
-  } = useForm<TTechincalFitFormData>({
-    defaultValues: {
-      skill: "",
-      maxExp: 0,
-      minExp: 0,
-      weightage: 0,
-    },
-    resolver: zodResolver(technicalFitFormSchema),
-    mode: "onChange",
-  });
+  const { nextStep } = usePostJobStore();
   const [skillsList, setSkillsList] = useState<ITechnicalFormData[]>([]);
   const [editingUser, setEditingUser] = useState<ITechnicalFormData | null>(
     null
   );
 
   // Reset form whenever editingSkill changes
-  useEffect(() => {
-    if (editingUser) {
-      reset(editingUser);
-    } else {
-      reset({});
-    }
-  }, [editingUser, reset]);
+  // useEffect(() => {
+  //   if (editingUser) {
+  //     reset(editingUser);
+  //   } else {
+  //     reset({});
+  //   }
+  // }, [editingUser, reset]);
 
-  const technicalFitSubmitHandler =()=>{
-    console.log(skillsList)
-  }
+  const technicalFitSubmitHandler = () => {
+    console.log(skillsList);
+    if (skillsList.length > 0) {
+      nextStep("technicalFit", skillsList);
+    }
+  };
 
   const onSubmit = (data: TTechincalFitFormData) => {
     if (editingUser) {
@@ -52,7 +36,7 @@ export const useTechnicalFit = () => {
       // Add new user
       setSkillsList((prev) => [...prev, { ...data, id: prev.length + 1 }]);
     }
-    reset({});
+    // reset({});
   };
 
   const handleEdit = (updatedRow: ITechnicalFormData) => {
@@ -68,19 +52,14 @@ export const useTechnicalFit = () => {
 
   return {
     state: {
-      errors,
-      isValid,
-      isSubmitting,
       skillsList,
       editingUser,
     },
     handlers: {
-      register,
-      handleSubmit: handleSubmit(onSubmit),
-      control,
+      handleSubmit: onSubmit,
       handleEdit,
       handleDelete,
-      technicalFitSubmitHandler
+      technicalFitSubmitHandler,
     },
   };
 };

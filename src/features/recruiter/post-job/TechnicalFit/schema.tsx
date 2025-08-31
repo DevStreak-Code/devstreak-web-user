@@ -119,3 +119,41 @@ export const getTechnicalFitColumns = (props: {
     },
   ];
 };
+
+// config/technicalFitFields.ts
+import type { TFormConfig } from "@/components/DynamicForm/dynamic-form-interface";
+
+export const technicalFitFields: TFormConfig = [
+  {
+    name: "skill",
+    label: "Skill",
+    component: "input",
+    type: "text",
+    placeholder: "e.g. React",
+    required: true,
+  },
+  {
+    name: "minExp",
+    label: "Min. Experience (Years)",
+    component: "input",
+    type: "number",
+    placeholder: "e.g. 3",
+    required: true,
+  },
+  {
+    name: "maxExp",
+    label: "Max. Experience (Years)",
+    component: "input",
+    type: "number",
+    placeholder: "e.g. 5",
+    required: true,
+  },
+  {
+    name: "weightage",
+    label: "Importance (%)",
+    component: "input",
+    type: "number",
+    placeholder: "e.g. 40",
+    required: true,
+  },
+];

@@ -12,19 +12,11 @@ export const NavigationButton: React.FC<INavigationButtonProps> = (props) => {
   const { nextHandler, prevHandler } = props;
   return (
     <div className="flex gap-2">
-      <CustomButton
-        label="Prev"
-        variant="outline"
-        onClick={prevHandler}
-      />
-      <CustomButton
-        label="Next"
-        onClick={nextHandler}
-      />
+      <CustomButton label="Prev" variant="outline" onClick={prevHandler} />
+      <CustomButton label="Next" onClick={nextHandler} />
     </div>
   );
 };
-
 
 const PostJob = () => {
   const { handlers, state } = usePostJob();
@@ -34,6 +26,7 @@ const PostJob = () => {
   return (
     <div className="w-full h-full flex justify-center">
       <CustomStepper
+        showNavigation={false}
         steps={POST_JOB_FORM}
         currentStep={currentStep}
         onStepChange={() => {
