@@ -1275,5 +1275,5 @@ export const timezone = [
 ];
 
 export const customTimezone = timezone.map((item) => {
-  return { ...item, label: `${item.value}| ${item.abbr}`, value: item.abbr };
+  return { label: `${item.value} (${item.abbr})`, value: item.value };
 });

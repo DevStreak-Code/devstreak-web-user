@@ -41,6 +41,10 @@ export type TRadioField = TBaseField & {
   component: "radio";
   options: { label: string; value: string }[];
 };
+export type TCheckboxField = TBaseField & {
+  component: "checkbox";
+  options: { label: string; value: string }[];
+};
 
 export type FormField =
   | TTextField
@@ -50,6 +54,7 @@ export type FormField =
   | TSwitchField
   | TTagsField
   | TDateField
-  | TRadioField;
+  | TRadioField
+  | TCheckboxField;
 
 export type TFormConfig = FormField[];
