@@ -4,14 +4,12 @@ import { type ITechnicalFormData, type TTechincalFitFormData } from "./schema";
 import { usePostJobStore } from "../store";
 
 export const useTechnicalFit = () => {
-  const { nextStep } = usePostJobStore();
+  const { nextStep, prevStep, stepsData } = usePostJobStore();
   const [skillsList, setSkillsList] = useState<ITechnicalFormData[]>([]);
   const [editingUser, setEditingUser] = useState<ITechnicalFormData | null>(
     null
   );
 
-
- 
   const technicalFitSubmitHandler = () => {
     console.log(skillsList);
     if (skillsList.length > 0) {
@@ -24,7 +22,6 @@ export const useTechnicalFit = () => {
       setSkillsList((prev) =>
         prev.map((u) => (u.id === editingUser.id ? { ...u, ...data } : u))
       );
-      
     } else {
       // Add new user
       setSkillsList((prev) => [...prev, { ...data, id: prev.length + 1 }]);
@@ -43,6 +40,10 @@ export const useTechnicalFit = () => {
     setSkillsList(updatedList);
   };
 
+  const prevHandler = () => {
+    prevStep("jobRole", stepsData["jobRole"]);
+  };
+
   return {
     state: {
       skillsList,
@@ -53,6 +54,7 @@ export const useTechnicalFit = () => {
       handleEdit,
       handleDelete,
       technicalFitSubmitHandler,
+      prevStep: prevHandler,
     },
   };
 };

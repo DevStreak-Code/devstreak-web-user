@@ -14,8 +14,13 @@ const TechnicalFit: React.FC = () => {
   const formRef = useRef<DynamicFormRef>(null);
   const { state, handlers } = useTechnicalFit();
   const { skillsList } = state;
-  const { handleSubmit, handleEdit, handleDelete, technicalFitSubmitHandler } =
-    handlers;
+  const {
+    handleSubmit,
+    handleEdit,
+    handleDelete,
+    technicalFitSubmitHandler,
+    prevStep,
+  } = handlers;
   const columns = getTechnicalFitColumns({ handleEdit, handleDelete });
 
   // Define DataTable columns
@@ -44,12 +49,19 @@ const TechnicalFit: React.FC = () => {
           }
           isShowDefaultSubmitButton={false}
         />
-        <CustomButton
-          label={state.editingUser ? "Update" : "Save"}
-          onClick={() => {
-            formRef.current?.submitForm();
-          }}
-        />
+        <div className="gap-2 mt-2 flex justify-start">
+          <CustomButton
+            label="Back"
+            variant="outline"
+            onClick={() => prevStep()}
+          />
+          <CustomButton
+            label={state.editingUser ? "Update" : "Save"}
+            onClick={() => {
+              formRef.current?.submitForm();
+            }}
+          />
+        </div>
       </div>
 
       {/* ✅ Reusable DataTable */}
@@ -64,7 +76,11 @@ const TechnicalFit: React.FC = () => {
 
       {skillsList.length > 0 && (
         <div className="gap-2 mt-4 flex justify-end">
-          <CustomButton className="bg-gray-400" label="Back" />
+          <CustomButton
+            className="bg-gray-400"
+            label="Back"
+            onClick={prevStep}
+          />
           <CustomButton
             label="Save"
             onClick={() => technicalFitSubmitHandler()}

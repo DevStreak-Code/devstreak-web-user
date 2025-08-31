@@ -46,6 +46,11 @@ export const jobRoleValidationSchema = z
 
 export type TJobFormValidationSchema = z.infer<typeof jobRoleValidationSchema>;
 
+export const initialValues = {
+  jobRole: "",
+  totalExp: "",
+  relevantExp: "",
+};
 
 export const jobRoleFields: TFormConfig = [
   {

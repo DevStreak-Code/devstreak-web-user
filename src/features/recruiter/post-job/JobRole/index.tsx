@@ -1,12 +1,13 @@
 import { useJobRole } from "./useJobRole";
 import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
-import { jobRoleFields, jobRoleValidationSchema } from "./schema";
+import { initialValues, jobRoleFields, jobRoleValidationSchema } from "./schema";
 import { NavigationButton } from "..";
 import { useRef } from "react";
 
 const JobRole = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useJobRole();
+  const { handlers, state } = useJobRole();
+  const { editInfo } = state;
   const { submitHandler } = handlers;
 
   return (
@@ -25,9 +26,11 @@ const JobRole = () => {
         schema={jobRoleValidationSchema}
         onSubmit={submitHandler}
         isShowDefaultSubmitButton={false}
+        initialValues={editInfo || initialValues}
       />
       <NavigationButton
         prevHandler={() => formRef.current?.submitForm()}
+        isPrevDisabled
         nextHandler={() => formRef.current?.submitForm()}
       />
     </div>

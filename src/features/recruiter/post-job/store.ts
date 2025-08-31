@@ -1,4 +1,3 @@
-import { createServiceStore } from "@/lib/store/zustand-store";
 import { create } from "zustand";
 
 type StepData = {
@@ -21,8 +20,9 @@ export type TStep = (typeof EStep)[keyof typeof EStep];
 type TJobPostStore = {
   currentStep: number;
   stepsData: Partial<Record<TStep, StepData>>;
+  editInfo: any;
   nextStep: (key: TStep, data: unknown) => void;
-  prevStep: () => void;
+  prevStep: (key: TStep, data: unknown) => void;
   goToStep: (step: number) => void;
   updateStepData: (step: number, data: unknown, isComplete?: boolean) => void;
 };
@@ -30,6 +30,7 @@ type TJobPostStore = {
 export const usePostJobStore = create<TJobPostStore>((set) => ({
   currentStep: 1,
   stepsData: {},
+  editInfo: null,
   nextStep: (key, data) =>
     set((state) => {
       const next = state.currentStep + 1;
@@ -38,10 +39,13 @@ export const usePostJobStore = create<TJobPostStore>((set) => ({
         stepsData: { ...state.stepsData, [key]: data },
       };
     }),
-  prevStep: () =>
+  prevStep: (_key, data) =>
     set((state) => {
       const prev = state.currentStep > 1 ? state.currentStep - 1 : 1;
-      return { currentStep: prev };
+      return {
+        currentStep: prev,
+        editInfo: data,
+      };
     }),
 
   goToStep: (step) => set({ currentStep: step }),

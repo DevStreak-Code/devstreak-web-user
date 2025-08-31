@@ -6,14 +6,25 @@ import CustomButton from "@/components/CustomButton";
 interface INavigationButtonProps {
   nextHandler: () => void;
   prevHandler: () => void;
+  isPrevDisabled?: boolean;
+  isNextDisabled?: boolean;
 }
 
 export const NavigationButton: React.FC<INavigationButtonProps> = (props) => {
-  const { nextHandler, prevHandler } = props;
+  const { nextHandler, prevHandler, isNextDisabled, isPrevDisabled } = props;
   return (
     <div className="flex gap-2">
-      <CustomButton label="Prev" variant="outline" onClick={prevHandler} />
-      <CustomButton label="Next" onClick={nextHandler} />
+      <CustomButton
+        label="Prev"
+        variant="outline"
+        onClick={prevHandler}
+        disabled={isPrevDisabled}
+      />
+      <CustomButton
+        label="Next"
+        onClick={nextHandler}
+        disabled={isNextDisabled}
+      />
     </div>
   );
 };
