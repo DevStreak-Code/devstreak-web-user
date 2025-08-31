@@ -12,3 +12,27 @@ export const PAYMENT_BASIS = [
     label: "Monthly (per month)",
   },
 ];
+
+export const URGENCY_FIT = [
+  {
+    value: "1",
+    label: "Immediate joiner",
+  },
+  {
+    value: "2",
+    label: "Within 7 days",
+  },
+  {
+    value: "3",
+    label: "Within 30 days",
+  },
+  {
+    value: "4",
+    label: "Within 60 days",
+  },
+  {
+    value: "5",
+    label: "Within 90 days",
+  },
+];
+

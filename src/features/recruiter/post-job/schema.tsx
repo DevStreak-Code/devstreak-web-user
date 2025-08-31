@@ -2,6 +2,7 @@ import JobRole from "./JobRole";
 import SalaryExpectationFit from "./SalaryExpectation";
 import TechnicalFit from "./TechnicalFit";
 import TimezoneFit from "./TimezoneFit";
+import UrgencyFit from "./UrgencyFit";
 
 export const POST_JOB_FORM = [
   {
@@ -19,5 +20,9 @@ export const POST_JOB_FORM = [
   {
     id: 4,
     comp: <TimezoneFit />,
+  },
+  {
+    id: 5,
+    comp: <UrgencyFit />,
   },
 ];
