@@ -1,6 +1,4 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-
 interface ICheckboxOption {
   label: string;
   value: string;
@@ -35,7 +33,7 @@ const CustomCheckboxGroup: React.FC<ICustomCheckboxGroupProps> = ({
     orientation == "row" ? "flex-row item-center" : "flex-col justify-center";
   return (
     <div className="space-y-1">
-      <label htmlFor={name} className="text-sm   font-medium text-gray-600">
+      <label htmlFor={name} className="text-sm mb-1   font-medium text-gray-600">
         {label} {required ? <span className="text-destructive">*</span> : ""}
       </label>{" "}
       <div className={`flex ${orientationClass} gap-2 `}>
@@ -63,7 +61,12 @@ const CustomCheckboxGroup: React.FC<ICustomCheckboxGroupProps> = ({
                 }}
                 disabled={disabled}
               />
-              <Label htmlFor={id}>{option.label}</Label>
+              <label
+                htmlFor={id}
+                className="text-sm   font-medium text-gray-600"
+              >
+                {option.label}
+              </label>
             </div>
           );
         })}

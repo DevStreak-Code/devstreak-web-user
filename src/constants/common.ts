@@ -12,3 +12,18 @@ export const PAYMENT_BASIS = [
     label: "Monthly (per month)",
   },
 ];
+
+export const WORK_ARRANGEMENTS = [
+  {
+    value: "REMOTE",
+    label: "Remote",
+  },
+  {
+    value: "ONSITE",
+    label: "On-Site",
+  },
+  {
+    value: "HYBRID",
+    label: "HYBRID",
+  },
+];
