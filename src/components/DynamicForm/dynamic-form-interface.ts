@@ -46,6 +46,22 @@ export type TCheckboxField = TBaseField & {
   options: { label: string; value: string }[];
 };
 
+export type TAutoCompleteField = TBaseField & {
+  component: "autocomplete";
+  /**
+   * Static options (if no API needed)
+   */
+  options?: { label: string; value: string }[];
+  /**
+   * Async fetch function for dynamic search
+   */
+  fetchOptions?: (
+    query: string
+  ) => Promise<
+    { label: string; value: string; extra?: Record<string, unknown> }[]
+  >;
+};
+
 export type FormField =
   | TTextField
   | TTextAreaField
@@ -55,6 +71,7 @@ export type FormField =
   | TTagsField
   | TDateField
   | TRadioField
-  | TCheckboxField;
+  | TCheckboxField
+  | TAutoCompleteField;
 
 export type TFormConfig = FormField[];

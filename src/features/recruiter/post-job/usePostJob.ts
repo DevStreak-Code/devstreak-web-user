@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { POST_JOB_FORM } from "./schema";
 
 const usePostJob = () => {
-  const currentState = 5;
+  const currentState = 6;
 
   const getComponent = useCallback(() => {
     let jsx = {} as { id: number; comp: React.ReactElement } | undefined;

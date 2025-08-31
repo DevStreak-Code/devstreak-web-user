@@ -47,6 +47,6 @@ export const WORK_ARRANGEMENTS = [
   },
   {
     value: "HYBRID",
-    label: "HYBRID",
+    label: "Hybrid",
   },
 ];

@@ -32,8 +32,8 @@ const CustomCheckboxGroup: React.FC<ICustomCheckboxGroupProps> = ({
   const orientationClass =
     orientation == "row" ? "flex-row item-center" : "flex-col justify-center";
   return (
-    <div className="space-y-1">
-      <label htmlFor={name} className="text-sm mb-1   font-medium text-gray-600">
+    <div className="flex flex-col gap-1">
+      <label htmlFor={name} className="text-sm   font-medium text-gray-600">
         {label} {required ? <span className="text-destructive">*</span> : ""}
       </label>{" "}
       <div className={`flex ${orientationClass} gap-2 `}>

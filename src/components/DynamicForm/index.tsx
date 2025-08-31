@@ -13,6 +13,7 @@ import CustomSelect from "../CustomSelect";
 import CustomInput from "../CustomInput";
 import { DevTool } from "@hookform/devtools";
 import CustomCheckboxGroup from "../CustomCheckbox";
+import CustomAutocomplete from "../CustomAutoComplete";
 
 // Components
 
@@ -163,6 +164,26 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
                 onBlur={onBlur}
                 options={field.options}
                 error={errors[field.name]?.message as string}
+              />
+            )}
+          />
+        );
+
+      case "autocomplete":
+        return (
+          <Controller
+            control={control}
+            name={field.name}
+            render={({ field: { value, onChange } }) => (
+              <CustomAutocomplete
+                {...common}
+                value={value}
+                onChange={onChange}
+                fetchOptions={
+                  field.fetchOptions
+                    ? field.fetchOptions
+                    : async () => field.options || []
+                }
               />
             )}
           />
