@@ -36,3 +36,17 @@ export const URGENCY_FIT = [
   },
 ];
 
+export const WORK_ARRANGEMENTS = [
+  {
+    value: "REMOTE",
+    label: "Remote",
+  },
+  {
+    value: "ONSITE",
+    label: "On-Site",
+  },
+  {
+    value: "HYBRID",
+    label: "HYBRID",
+  },
+];
