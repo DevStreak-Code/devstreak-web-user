@@ -1,5 +1,6 @@
 import { useSalaryExpectation } from "./useSalaryExpectation";
 import {
+  initialValues,
   salaryExpectationFields,
   salaryExpectationValidationSchema,
 } from "./schema";
@@ -9,8 +10,10 @@ import CustomButton from "@/components/CustomButton";
 
 const SalaryExpectationFit = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useSalaryExpectation();
-  const { submitHandler } = handlers;
+
+  const { handlers, state } = useSalaryExpectation();
+  const { editInfo, stepsData } = state;
+  const { submitHandler, prevStep } = handlers;
 
   return (
     <div className="">
@@ -24,13 +27,14 @@ const SalaryExpectationFit = () => {
         schema={salaryExpectationValidationSchema}
         onSubmit={submitHandler}
         isShowDefaultSubmitButton={false}
+        initialValues={
+          stepsData["salaryExpectationFit"]?.data ||
+          editInfo?.data ||
+          initialValues
+        }
       />
       <div className="flex gap-2">
-        <CustomButton
-          label="Prev"
-          variant="outline"
-          onClick={() => formRef.current?.submitForm()}
-        />
+        <CustomButton label="Prev" variant="outline" onClick={prevStep} />
         <CustomButton
           label="Next"
           onClick={() => formRef.current?.submitForm()}

@@ -39,6 +39,7 @@ const CustomInput: React.FC<ICustomInputProps> = (props) => {
 
   const isPassword = type === "password";
   const inputType = isPassword ? (show ? "text" : "password") : type;
+
   return (
     <div className={className}>
       <label htmlFor={name} className="text-sm   font-medium text-gray-600">

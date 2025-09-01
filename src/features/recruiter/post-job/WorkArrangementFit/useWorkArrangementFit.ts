@@ -15,13 +15,20 @@ export async function searchLocationOptions(query: string) {
 }
 
 export const useWorkArrangementFit = () => {
-  const { nextStep } = usePostJobStore();
+  const { nextStep, prevStep, stepsData } = usePostJobStore();
   const onSubmit = (data: TWorkArrangementFitValidationSchema) => {
     nextStep("workArrangementFit", data);
   };
+  const prevHandler = () => {
+    prevStep("urgencyFit", stepsData["urgencyFit"]);
+  };
   return {
+    state: {
+      stepsData,
+    },
     handlers: {
       onSubmit,
+      prevHandler,
     },
   };
 };

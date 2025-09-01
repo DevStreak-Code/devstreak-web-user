@@ -26,7 +26,7 @@ const JobRole = () => {
         schema={jobRoleValidationSchema}
         onSubmit={submitHandler}
         isShowDefaultSubmitButton={false}
-        initialValues={editInfo || initialValues}
+        initialValues={editInfo?.data || initialValues}
       />
       <NavigationButton
         prevHandler={() => formRef.current?.submitForm()}

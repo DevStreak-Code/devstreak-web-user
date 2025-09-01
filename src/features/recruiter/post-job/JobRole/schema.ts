@@ -77,4 +77,5 @@ export const jobRoleFields: TFormConfig = [
     placeholder: "e.g. 4",
     required: true,
   },
+  
 ];

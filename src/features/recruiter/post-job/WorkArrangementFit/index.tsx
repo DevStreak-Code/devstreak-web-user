@@ -9,8 +9,9 @@ import { useRef } from "react";
 
 const WorkArrangementFit = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useWorkArrangementFit();
-  const { onSubmit } = handlers;
+  const { handlers, state } = useWorkArrangementFit();
+  const { stepsData } = state;
+  const { onSubmit, prevHandler } = handlers;
 
   return (
     <div className="">
@@ -26,10 +27,11 @@ const WorkArrangementFit = () => {
         schema={workArrangementFitValidationSchema}
         onSubmit={onSubmit}
         isShowDefaultSubmitButton={false}
+        initialValues={stepsData["workArrangementFit"]?.data}
       />
       <NavigationButton
         nextHandler={() => formRef.current?.submitForm()}
-        prevHandler={() => {}}
+        prevHandler={() => prevHandler()}
       />
     </div>
   );

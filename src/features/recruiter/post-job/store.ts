@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 
 type StepData = {
@@ -24,7 +25,7 @@ type TJobPostStore = {
   nextStep: (key: TStep, data: unknown) => void;
   prevStep: (key: TStep, data: unknown) => void;
   goToStep: (step: number) => void;
-  updateStepData: (step: number, data: unknown, isComplete?: boolean) => void;
+  updateStepData: (step: TStep, data: unknown, isComplete?: boolean) => void;
 };
 
 export const usePostJobStore = create<TJobPostStore>((set) => ({
@@ -36,7 +37,7 @@ export const usePostJobStore = create<TJobPostStore>((set) => ({
       const next = state.currentStep + 1;
       return {
         currentStep: next,
-        stepsData: { ...state.stepsData, [key]: data },
+        stepsData: { ...state.stepsData, [key]: { data, isComplete: true } },
       };
     }),
   prevStep: (_key, data) =>

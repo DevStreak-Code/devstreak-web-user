@@ -46,7 +46,10 @@ const CustomSelect: React.FC<ICustomSelectProps> = ({
       )}
       <Select disabled={disabled} value={value} onValueChange={handleChange}>
         <SelectTrigger className={error ? "text-destructive" : ""}>
-          <SelectValue placeholder={placeholder || "Select"} />
+          <SelectValue
+            placeholder={placeholder || "Select"} // ✅ display correct label when value is set
+            defaultValue={value}
+          />
         </SelectTrigger>
         <SelectContent>
           {options.map((option) => (

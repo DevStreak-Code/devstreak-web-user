@@ -6,8 +6,9 @@ import { useRef } from "react";
 
 const UrgencyFit = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useUrgencyFit();
-  const { onSubmit } = handlers;
+  const { handlers, state } = useUrgencyFit();
+  const { stepsData } = state;
+  const { onSubmit, prevHandler } = handlers;
   return (
     <div className="">
       <h4 className="text-3xl font-[500] text-black">
@@ -19,11 +20,12 @@ const UrgencyFit = () => {
           config={urgencyFitFormSchema}
           schema={urgencyFitValidationSchema}
           isShowDefaultSubmitButton={false}
+          initialValues={stepsData["urgencyFit"]?.data}
           onSubmit={onSubmit}
         />
         <NavigationButton
           nextHandler={() => formRef.current?.submitForm()}
-          prevHandler={() => {}}
+          prevHandler={() => prevHandler()}
         />
       </div>
     </div>

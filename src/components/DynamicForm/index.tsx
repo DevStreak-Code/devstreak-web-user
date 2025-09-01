@@ -50,6 +50,7 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
       formState: { errors },
       reset,
     } = useForm({
+      defaultValues: initialValues ?? {},
       resolver: zodResolver(schema),
     });
 
@@ -73,6 +74,8 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
         required: field.required,
         error: errors[field.name]?.message as string,
       };
+
+
 
       switch (field.component) {
         case "input":

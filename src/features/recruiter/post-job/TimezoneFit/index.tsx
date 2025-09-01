@@ -6,8 +6,9 @@ import { NavigationButton } from "..";
 
 const TimezoneFit = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useTimezoneFit();
-  const { onSubmit } = handlers;
+  const { handlers, state } = useTimezoneFit();
+  const { stepsData } = state;
+  const { onSubmit, prevHandler } = handlers;
 
   return (
     <div className="">
@@ -19,10 +20,11 @@ const TimezoneFit = () => {
           schema={timezoneValidationSchema}
           onSubmit={onSubmit}
           isShowDefaultSubmitButton={false}
+          initialValues={stepsData["timezoneFit"]?.data}
         />
         <NavigationButton
           nextHandler={() => formRef.current?.submitForm()}
-          prevHandler={() => {}}
+          prevHandler={prevHandler}
         />
       </div>
     </div>

@@ -3,6 +3,13 @@ import { PAYMENT_BASIS } from "@/constants/common";
 import { uniqueCurrencies } from "@/constants/currencies";
 import { z } from "zod";
 
+export const initialValues = {
+  currency: "",
+  paymentBasis: "",
+  minSalary: "",
+  maxSalary: "",
+};
+
 export const salaryExpectationValidationSchema = z
   .object({
     currency: z

@@ -4,14 +4,15 @@ import { type ITechnicalFormData, type TTechincalFitFormData } from "./schema";
 import { usePostJobStore } from "../store";
 
 export const useTechnicalFit = () => {
-  const { nextStep, prevStep, stepsData } = usePostJobStore();
-  const [skillsList, setSkillsList] = useState<ITechnicalFormData[]>([]);
+  const { nextStep, prevStep, stepsData, updateStepData } = usePostJobStore();
+  const skillsList =
+    (stepsData["technicalFit"]?.data as ITechnicalFormData[]) || [];
+
   const [editingUser, setEditingUser] = useState<ITechnicalFormData | null>(
     null
   );
 
   const technicalFitSubmitHandler = () => {
-    console.log(skillsList);
     if (skillsList.length > 0) {
       nextStep("technicalFit", skillsList);
     }
@@ -19,12 +20,16 @@ export const useTechnicalFit = () => {
 
   const onSubmit = (data: TTechincalFitFormData) => {
     if (editingUser) {
-      setSkillsList((prev) =>
-        prev.map((u) => (u.id === editingUser.id ? { ...u, ...data } : u))
+      const updatedList = skillsList.map((u) =>
+        u.id === editingUser.id ? { ...u, ...data } : u
       );
+      updateStepData("technicalFit", updatedList, true);
     } else {
       // Add new user
-      setSkillsList((prev) => [...prev, { ...data, id: prev.length + 1 }]);
+      updateStepData("technicalFit", [
+        ...skillsList,
+        { ...data, id: skillsList.length + 1 },
+      ]);
     }
     setEditingUser(null);
   };
@@ -37,7 +42,7 @@ export const useTechnicalFit = () => {
     const updatedList = skillsList.filter((item) => {
       return item.id !== row.id;
     });
-    setSkillsList(updatedList);
+    updateStepData("technicalFit", updatedList, true);
   };
 
   const prevHandler = () => {
