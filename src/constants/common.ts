@@ -50,3 +50,18 @@ export const WORK_ARRANGEMENTS = [
     label: "Hybrid",
   },
 ];
+
+export const Employment_Type = [
+  {
+    value: "FULL_TIME",
+    label: "Full Time",
+  },
+  {
+    value: "PART_TIME",
+    label: "Part Time",
+  },
+  {
+    value: "C2H",
+    label: "Contract To Hire",
+  },
+];

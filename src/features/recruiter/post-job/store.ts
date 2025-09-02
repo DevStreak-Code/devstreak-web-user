@@ -13,6 +13,7 @@ export const EStep = {
   TIMEZONE_FIT: "timezoneFit",
   URGENCY_FIT: "urgencyFit",
   WORK_ARRANGEMENT_FIT: "workArrangementFit",
+  EDUCATION_FIT: "educationFit",
 } as const;
 
 // 🔹 this creates a union type: "jobRole" | "technicalFit" | ...

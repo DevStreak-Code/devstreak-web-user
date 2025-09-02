@@ -1,7 +1,8 @@
 import type { TFormConfig } from "@/components/DynamicForm/dynamic-form-interface";
-import { PAYMENT_BASIS } from "@/constants/common";
+import { Employment_Type, PAYMENT_BASIS } from "@/constants/common";
 import { uniqueCurrencies } from "@/constants/currencies";
 import { z } from "zod";
+
 
 export const initialValues = {
   currency: "",
@@ -35,6 +36,13 @@ export const salaryExpectationValidationSchema = z
         .nonnegative("Minimum salary cannot be negative.")
     ),
 
+    employmentType: z.enum(
+      Employment_Type.map((basis) => basis.value) as [string, ...string[]],
+      {
+        required_error: "Employment type is required.",
+        invalid_type_error: "Invalid type selected.",
+      }
+    ),
     maxSalary: z.preprocess(
       (val) => (val === "" || val == null ? undefined : Number(val)),
       z
@@ -68,6 +76,13 @@ export const salaryExpectationFields: TFormConfig = [
     required: true,
     options: uniqueCurrencies,
     placeholder: "Select Currency",
+  },
+  {
+    name: "employmentType",
+    label: "Employment Type",
+    component: "select",
+    required: true,
+    options: Employment_Type,
   },
   {
     name: "paymentBasis",
