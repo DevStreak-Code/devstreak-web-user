@@ -7,13 +7,10 @@ type StepData = {
 };
 
 export const EStep = {
-  JOB_ROLE: "jobRole",
-  TECHNICAL_FIT: "technicalFit",
-  SALARY_EXPECTATION: "salaryExpectationFit",
-  TIMEZONE_FIT: "timezoneFit",
-  URGENCY_FIT: "urgencyFit",
-  WORK_ARRANGEMENT_FIT: "workArrangementFit",
-  EDUCATION_FIT: "educationFit",
+  PERSONAL_DETAILS: "personalDetails",
+  PROFILE_SUMMARY: "profileSummary",
+  SKILLS: "skills",
+  WORK_EXPERIENCE: "workExperience",
 } as const;
 
 // 🔹 this creates a union type: "jobRole" | "technicalFit" | ...
@@ -29,7 +26,7 @@ type TJobPostStore = {
   updateStepData: (step: TStep, data: unknown, isComplete?: boolean) => void;
 };
 
-export const usePostJobStore = create<TJobPostStore>((set) => ({
+export const useProfileBuilderStore = create<TJobPostStore>((set) => ({
   currentStep: 1,
   stepsData: {},
   editInfo: null,

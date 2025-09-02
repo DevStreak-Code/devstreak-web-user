@@ -25,8 +25,13 @@ export const RECRUITER_ROUTES = {
   RECRUITER_DASHBOARD: "/recruiter/dashboard",
 };
 
+export const CANDIDATES_ROUTES = {
+  CANDIDATE_PROFILE_BUILDER: "/candidate/profile",
+};
+
 export const ROUTES = {
   ...SAMPLE_CODE_ROUTE,
   ...COMMON_ROUTES,
   ...RECRUITER_ROUTES,
+  ...CANDIDATES_ROUTES
 };
