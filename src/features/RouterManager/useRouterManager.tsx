@@ -13,6 +13,7 @@ import DesignUI from "../sample/DesignUI";
 import AddEmployee from "../recruiter/add-employee";
 import SampleDynamicForm from "../sample/SampleDynamicForm";
 import PostJob from "../recruiter/post-job";
+import RecruiterDashboard from "../recruiter/dashboard";
 
 export const ROUTE_CONFIG = [
   {
@@ -24,6 +25,11 @@ export const ROUTE_CONFIG = [
     path: ROUTES.DESIGN_UI,
     component: <DesignUI />,
     name: "Design UI Components",
+  },
+  {
+    path: ROUTES.RECRUITER_DASHBOARD,
+    component: <RecruiterDashboard />,
+    name: "Recruiter Dashboard",
   },
   {
     path: ROUTES.LOGIN,
