@@ -65,3 +65,11 @@ export const Employment_Type = [
     label: "Contract To Hire",
   },
 ];
+
+export const NOTICE_PERIOD = [
+      { label: "Immediate", value: "immediate" },
+      { label: "15 Days", value: "15_days" },
+      { label: "1 Month", value: "1_month" },
+      { label: "2 Months", value: "2_months" },
+      { label: "3 Months", value: "3_months" },
+    ]
