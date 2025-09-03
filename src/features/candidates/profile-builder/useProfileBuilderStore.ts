@@ -27,7 +27,7 @@ type TJobPostStore = {
 };
 
 export const useProfileBuilderStore = create<TJobPostStore>((set) => ({
-  currentStep: 1,
+  currentStep: 2,
   stepsData: {},
   editInfo: null,
   nextStep: (key, data) =>
