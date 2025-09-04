@@ -231,7 +231,10 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
         ))}
         {/* default submit button is optional */}
         {isShowDefaultSubmitButton && (
-          <CustomButton type="submit" label="Submit" />
+          <CustomButton
+            type="submit"
+            label={initialValues?.id ? "Update" : "Submit"}
+          />
         )}
         <DevTool control={control} />
       </form>

@@ -1,15 +1,20 @@
 import type { DynamicFormRef } from "@/components/DynamicForm";
 import { usePersonalDetails } from "./usePersonalDetails";
 import { useRef } from "react";
-import { personalDetailsFormFields, PersonalDetailsFormSchema } from "./schema";
+import {
+  initialValues,
+  personalDetailsFormFields,
+  PersonalDetailsFormSchema,
+} from "./schema";
 import DynamicForm from "@/components/DynamicForm";
 import { NavigationButton } from "@/features/recruiter/post-job";
 
 const PersonalDetails = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = usePersonalDetails();
+  const { handlers, state } = usePersonalDetails();
+  const { editInfo } = state;
 
-  const { submitHandler } = handlers;
+  const { submitHandler, stepsData } = handlers;
 
   return (
     <div className="">
@@ -21,6 +26,9 @@ const PersonalDetails = () => {
         schema={PersonalDetailsFormSchema}
         onSubmit={submitHandler}
         isShowDefaultSubmitButton={false}
+        initialValues={
+          stepsData["personalDetails"]?.data || editInfo?.data || initialValues
+        }
       />
       <NavigationButton
         prevHandler={() => formRef.current?.submitForm()}

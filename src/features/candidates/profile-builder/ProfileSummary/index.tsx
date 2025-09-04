@@ -1,5 +1,6 @@
 import DynamicForm, { type DynamicFormRef } from "@/components/DynamicForm";
 import {
+  initialValues,
   profileSummaryDetailsFormfields,
   ProfileSummaryFormSchema,
 } from "./schema";
@@ -9,9 +10,10 @@ import { useProfileSummary } from "./useProfileSummary";
 
 const ProfileSummary = () => {
   const formRef = useRef<DynamicFormRef>(null);
-  const { handlers } = useProfileSummary();
+  const { handlers, state } = useProfileSummary();
+  const { editInfo } = state;
 
-  const { submitHandler } = handlers;
+  const { submitHandler, prevStepHandler, stepsData } = handlers;
 
   return (
     <div className="">
@@ -22,11 +24,13 @@ const ProfileSummary = () => {
         config={profileSummaryDetailsFormfields}
         schema={ProfileSummaryFormSchema}
         onSubmit={submitHandler}
+        initialValues={
+          stepsData["profileSummary"]?.data || editInfo?.data || initialValues
+        }
         isShowDefaultSubmitButton={false}
       />
       <NavigationButton
-        prevHandler={() => formRef.current?.submitForm()}
-        isPrevDisabled
+        prevHandler={prevStepHandler}
         nextHandler={() => formRef.current?.submitForm()}
       />
     </div>
