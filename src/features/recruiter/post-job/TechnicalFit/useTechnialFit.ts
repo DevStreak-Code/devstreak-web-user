@@ -7,6 +7,7 @@ export const useTechnicalFit = () => {
   const { nextStep, prevStep, stepsData, updateStepData } = usePostJobStore();
   const skillsList =
     (stepsData["technicalFit"]?.data as ITechnicalFormData[]) || [];
+  console.log("????????", stepsData);
 
   const [editingUser, setEditingUser] = useState<ITechnicalFormData | null>(
     null

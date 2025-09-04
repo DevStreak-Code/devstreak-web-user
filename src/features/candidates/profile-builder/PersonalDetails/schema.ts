@@ -2,17 +2,15 @@ import type { TFormConfig } from "@/components/DynamicForm/dynamic-form-interfac
 import { searchLocationOptions } from "@/features/recruiter/post-job/WorkArrangementFit/useWorkArrangementFit";
 import { z } from "zod";
 
-export interface IPersonalDetailsForm  {
-  fullName :string;
+export interface IPersonalDetailsForm {
+  fullName: string;
   email: string;
   phone: string;
-  linkedIn:string;
-  github:string;
-  portfolio:string;
-  location:string
+  linkedIn: string;
+  github: string;
+  portfolio: string;
+  location: string;
 }
-
-
 
 export const PersonalDetailsFormSchema = z.object({
   fullName: z
@@ -39,10 +37,7 @@ export const PersonalDetailsFormSchema = z.object({
     .url("Please enter a valid LinkedIn URL")
     .or(z.literal("")),
 
-  github: z
-    .string()
-    .url("Please enter a valid GitHub URL")
-    .or(z.literal("")),
+  github: z.string().url("Please enter a valid GitHub URL").or(z.literal("")),
 
   portfolio: z
     .string()
@@ -52,9 +47,8 @@ export const PersonalDetailsFormSchema = z.object({
   location: z
     .string()
     .min(1, "Location is required")
-    .max(100, "Location must be less than 100 characters"),
+    .max(1000, "Location must be less than 100 characters"),
 });
-
 
 export type PersonalDetailsForm = z.infer<typeof PersonalDetailsFormSchema>;
 
@@ -65,7 +59,7 @@ export const initialValues: IPersonalDetailsForm = {
   linkedIn: "",
   github: "",
   portfolio: "",
-  location: ""
+  location: "",
 };
 
 export const personalDetailsFormFields: TFormConfig = [
@@ -118,11 +112,11 @@ export const personalDetailsFormFields: TFormConfig = [
     required: false,
   },
   {
-      name: "location",
-      label: "Location",
-      component: "autocomplete",
-      required: true,
-      placeholder: "Enter Job Location...",
-      fetchOptions: searchLocationOptions,
-    },
+    name: "location",
+    label: "Location",
+    component: "autocomplete",
+    required: true,
+    placeholder: "Enter Job Location...",
+    fetchOptions: searchLocationOptions,
+  },
 ];
