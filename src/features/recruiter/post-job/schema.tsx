@@ -5,6 +5,7 @@ import WorkArrangementFit from "./WorkArrangementFit";
 import TimezoneFit from "./TimezoneFit";
 import UrgencyFit from "./UrgencyFit";
 import EducationFit from "./EducationFit";
+import JobPreview from "./Preview";
 
 export const POST_JOB_FORM = [
   {
@@ -34,5 +35,9 @@ export const POST_JOB_FORM = [
   {
     id: 7,
     comp: <EducationFit />,
+  },
+   {
+    id: 8,
+    comp: <JobPreview />,
   },
 ];

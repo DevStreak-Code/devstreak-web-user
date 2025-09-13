@@ -62,11 +62,11 @@ export const technicalFitFormSchema = z
 
 export type TTechincalFitFormData = z.infer<typeof technicalFitFormSchema>;
 
-export const getTechnicalFitColumns = (props: {
-  handleEdit: (row: ITechnicalFormData) => void;
-  handleDelete: (row: ITechnicalFormData) => void;
+export const getTechnicalFitColumns = (props?: {
+  handleEdit?: (row: ITechnicalFormData) => void;
+  handleDelete?: (row: ITechnicalFormData) => void;
 }): Column<any>[] => {
-  const { handleEdit, handleDelete } = props;
+  const { handleEdit, handleDelete } = props || {};
 
   return [
     {
@@ -101,14 +101,14 @@ export const getTechnicalFitColumns = (props: {
           <div className="flex justify-start gap-3" key={index}>
             <button
               type="button"
-              onClick={() => handleEdit(row)}
+              onClick={() => handleEdit && handleEdit(row)}
               className="text-primary cursor-pointer"
             >
               <SquarePen size={18} />
             </button>
             <button
               type="button"
-              onClick={() => handleDelete(row)}
+              onClick={() => handleDelete && handleDelete(row)}
               className="text-red-600 cursor-pointer"
             >
               <Trash2 size={18} />

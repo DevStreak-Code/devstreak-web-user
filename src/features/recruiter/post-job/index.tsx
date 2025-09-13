@@ -30,7 +30,7 @@ export const NavigationButton: React.FC<INavigationButtonProps> = (props) => {
 };
 
 const PostJob = () => {
-  const { handlers, state } = usePostJob();
+  const { state } = usePostJob();
   // const { setCurrentStep } = handlers;
   const { currentStep } = state;
 
