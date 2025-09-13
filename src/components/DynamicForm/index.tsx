@@ -75,8 +75,6 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
         error: errors[field.name]?.message as string,
       };
 
-
-
       switch (field.component) {
         case "input":
           return (
@@ -133,6 +131,7 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
                   onCheckedChange={onChange}
                   onBlur={onBlur}
                   error={errors[field.name]?.message as string}
+                  required={field.required}
                 />
               )}
             />
@@ -232,7 +231,10 @@ const DynamicForm = forwardRef<DynamicFormRef, DynamicFormProps>(
         ))}
         {/* default submit button is optional */}
         {isShowDefaultSubmitButton && (
-          <CustomButton type="submit" label="Submit" />
+          <CustomButton
+            type="submit"
+            label={initialValues?.id ? "Update" : "Submit"}
+          />
         )}
         <DevTool control={control} />
       </form>

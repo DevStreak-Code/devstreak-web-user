@@ -82,7 +82,7 @@ const TechnicalFit: React.FC = () => {
             onClick={prevStep}
           />
           <CustomButton
-            label="Save"
+            label="Next"
             onClick={() => technicalFitSubmitHandler()}
           />
         </div>

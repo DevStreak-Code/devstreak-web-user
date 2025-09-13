@@ -8,6 +8,7 @@ interface ICustomSwitchButtonProps {
   onBlur?: () => void;
   error?: string;
   label?: string;
+  required?: boolean;
 }
 
 const CustomSwitchButton: React.FC<ICustomSwitchButtonProps> = ({
@@ -18,12 +19,13 @@ const CustomSwitchButton: React.FC<ICustomSwitchButtonProps> = ({
   onBlur,
   error,
   label,
+  required,
 }) => {
   return (
     <div className="flex flex-col gap-1">
       {label && (
         <label htmlFor={name} className="text-sm font-medium text-gray-600">
-          {label}
+          {label} {required ? <span className="text-destructive">*</span> : ""}
         </label>
       )}
       <Switch

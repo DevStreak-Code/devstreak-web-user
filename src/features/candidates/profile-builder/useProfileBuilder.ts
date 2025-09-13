@@ -1,9 +1,8 @@
 import { useProfileBuilderStore } from "./useProfileBuilderStore";
 
-
 const useProfileBuidler = () => {
   const { currentStep, stepsData } = useProfileBuilderStore();
-  console.log("step::::",stepsData)
+  console.log("step::::", stepsData);
 
   return {
     state: { currentStep },
